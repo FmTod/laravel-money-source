@@ -15,7 +15,7 @@ class MoneyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'money');
+        $this->mergeConfigFrom(__DIR__.'/../config/money.php', 'money');
     }
 
     /**
