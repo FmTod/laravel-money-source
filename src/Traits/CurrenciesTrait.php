@@ -1,6 +1,6 @@
 <?php
 
-namespace Cknow\Money;
+namespace FmTod\Money\Traits;
 
 use InvalidArgumentException;
 use Money\Currencies;
@@ -9,6 +9,7 @@ use Money\Currencies\ISOCurrencies;
 use Money\Currencies\BitcoinCurrencies;
 use Money\Currencies\AggregateCurrencies;
 use Money\Currencies\CurrencyList;
+use function config;
 
 trait CurrenciesTrait
 {

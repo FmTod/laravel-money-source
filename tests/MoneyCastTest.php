@@ -1,10 +1,10 @@
 <?php
 
-namespace Cknow\Money\Tests;
+namespace FmTod\Money\Tests;
 
-use Cknow\Money\Money;
-use Cknow\Money\MoneyServiceProvider;
-use Cknow\Money\Tests\Database\Models\User;
+use FmTod\Money\Money;
+use FmTod\Money\Providers\MoneyServiceProvider;
+use FmTod\Money\Tests\Database\Models\User;
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use InvalidArgumentException;
@@ -131,7 +131,7 @@ class MoneyCastTest extends AbstractPackageTestCase
     public function testFailsToSetInvalidMoney()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid data provided for Cknow\Money\Tests\Database\Models\User::$money');
+        $this->expectExceptionMessage('Invalid data provided for FmTod\Money\Tests\Database\Models\User::$money');
 
         new User(['money' => new stdClass()]);
     }

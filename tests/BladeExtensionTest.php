@@ -1,8 +1,8 @@
 <?php
 
-namespace Cknow\Money\Tests;
+namespace FmTod\Money\Tests;
 
-use Cknow\Money\BladeExtension;
+use FmTod\Money\BladeExtension;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Compilers\BladeCompiler;
 use Mockery;

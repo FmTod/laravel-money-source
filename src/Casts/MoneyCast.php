@@ -1,7 +1,8 @@
 <?php
 
-namespace Cknow\Money;
+namespace FmTod\Money\Casts;
 
+use FmTod\Money\Money;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use InvalidArgumentException;
 use Money\Currency;
@@ -19,6 +20,7 @@ class MoneyCast implements CastsAttributes
      * Instantiate the class.
      *
      * @param string|null $currency
+     * @return void
      */
     public function __construct(string $currency = null)
     {
@@ -33,7 +35,7 @@ class MoneyCast implements CastsAttributes
      * @param mixed                               $value
      * @param array                               $attributes
      *
-     * @return \Cknow\Money\Money|null
+     * @return \FmTod\Money\Money|null
      */
     public function get($model, string $key, $value, array $attributes)
     {

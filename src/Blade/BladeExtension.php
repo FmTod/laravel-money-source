@@ -1,6 +1,6 @@
 <?php
 
-namespace Cknow\Money;
+namespace FmTod\Money\Blade;
 
 use Illuminate\View\Compilers\BladeCompiler;
 

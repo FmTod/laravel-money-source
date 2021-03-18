@@ -1,8 +1,8 @@
 <?php
 
-namespace Cknow\Money\Tests;
+namespace FmTod\Money\Tests;
 
-use Cknow\Money\CurrenciesTrait;
+use FmTod\Money\Traits\CurrenciesTrait;
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
 use Money\Currency;
 use stdClass;

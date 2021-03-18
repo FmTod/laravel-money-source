@@ -1,7 +1,8 @@
 <?php
 
-namespace Cknow\Money;
+namespace FmTod\Money\Providers;
 
+use FmTod\Money\Blade\BladeExtension;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
 

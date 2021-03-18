@@ -1,6 +1,6 @@
 <?php
 
-namespace Cknow\Money;
+namespace FmTod\Money\Traits;
 
 use Money\Currencies;
 use Money\Currencies\BitcoinCurrencies;

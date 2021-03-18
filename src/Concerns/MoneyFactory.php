@@ -1,7 +1,8 @@
 <?php
 
-namespace Cknow\Money;
+namespace FmTod\Money\Concerns;
 
+use FmTod\Money\Money;
 use Money\Currency;
 
 /**
@@ -192,13 +193,14 @@ trait MoneyFactory
      * __callStatic.
      *
      * @param string $method
-     * @param array  $arguments
+     * @param array $parameters
      *
-     * @return \Cknow\Money\Money
+     * @return \FmTod\Money\Money
+     * @throws \Money\Exception\UnknownCurrencyException
      */
-    public static function __callStatic($method, array $arguments)
+    public static function __callStatic($method, array $parameters)
     {
-        return new Money($arguments[0], new Currency($method));
+        return new Money($parameters[0], new Currency($method));
     }
 
     /**
@@ -206,7 +208,8 @@ trait MoneyFactory
      *
      * @param \Money\Money $instance
      *
-     * @return \Cknow\Money\Money
+     * @return \FmTod\Money\Money
+     * @throws \Money\Exception\UnknownCurrencyException
      */
     public static function fromMoney(\Money\Money $instance)
     {

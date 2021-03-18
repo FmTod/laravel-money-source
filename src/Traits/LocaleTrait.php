@@ -1,6 +1,8 @@
 <?php
 
-namespace Cknow\Money;
+namespace FmTod\Money\Traits;
+
+use function config;
 
 trait LocaleTrait
 {

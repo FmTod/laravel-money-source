@@ -14,13 +14,13 @@
 Run the following command from you terminal:
 
 ```bash
-composer require cknow/laravel-money
+composer require fmtod/laravel-money
 ```
 
 or add this to require section in your composer.json file:
 
 ```bash
-"cknow/laravel-money": "~6.0"
+"fmtod/laravel-money": "~1.0"
 ```
 
 then run ```composer update```
@@ -28,9 +28,9 @@ then run ```composer update```
 ## Usage
 
 ```php
-use Cknow\Money\Money;
+use FmTod\Money\Money;
 
-echo Money::USD(500); // $5.00
+echo Money::of(500, 'USD'); // $5.00
 ```
 
 ## Configuration
@@ -38,7 +38,7 @@ echo Money::USD(500); // $5.00
 The defaults are set in `config/money.php`. Copy this file to your own config directory to modify the values. You can publish the config using this command:
 
 ```bash
-php artisan vendor:publish --provider="Cknow\Money\MoneyServiceProvider"
+php artisan vendor:publish --provider="FmTod\Money\Providers\MoneyServiceProvider"
 ```
 
 This is the contents of the published file:
@@ -68,7 +68,7 @@ return [
 > See [MoneyPHP](http://moneyphp.org/) for more information
 
 ```php
-use Cknow\Money\Money;
+use FmTod\Money\Money;
 
 Money::USD(500)->add(Money::USD(500)); // $10.00
 Money::USD(500)->add(Money::USD(500), Money::USD(500)); // $15.00

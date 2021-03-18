@@ -1,8 +1,8 @@
 <?php
 
-namespace Cknow\Money\Tests\Database\Models;
+namespace FmTod\Money\Tests\Database\Models;
 
-use Cknow\Money\MoneyCast;
+use FmTod\Money\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Model;
 
 /**

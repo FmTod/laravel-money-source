@@ -1,7 +1,12 @@
 <?php
 
-namespace Cknow\Money;
+namespace FmTod\Money;
 
+use FmTod\Money\Concerns\MoneyFactory;
+use FmTod\Money\Traits\CurrenciesTrait;
+use FmTod\Money\Traits\LocaleTrait;
+use FmTod\Money\Traits\MoneyFormatterTrait;
+use FmTod\Money\Traits\MoneyParserTrait;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
@@ -38,11 +43,17 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Money.
      *
-     * @param int|string      $amount
-     * @param \Money\Currency $currency
+     * @param int|string $amount
+     * @param \Money\Currency|string $currency
+     * @return void
+     * @throws \Money\Exception\UnknownCurrencyException
      */
-    public function __construct($amount, Currency $currency)
+    public function __construct($amount, $currency)
     {
+        if (!$currency instanceof Currency) {
+            $currency = new Currency($currency);
+        }
+
         $this->money = new \Money\Money($amount, $currency);
     }
 
@@ -50,21 +61,21 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * __call.
      *
      * @param string $method
-     * @param array  $arguments
+     * @param array  $parameters
      *
-     * @return \Cknow\Money\Money|\Cknow\Money\Money[]|mixed
+     * @return \FmTod\Money\Money|\FmTod\Money\Money[]|mixed
      */
-    public function __call($method, array $arguments)
+    public function __call($method, array $parameters)
     {
         if (static::hasMacro($method)) {
-            return $this->macroCall($method, $arguments);
+            return $this->macroCall($method, $parameters);
         }
 
         if (!method_exists($this->money, $method)) {
             return $this;
         }
 
-        $result = call_user_func_array([$this->money, $method], static::getArguments($arguments));
+        $result = call_user_func_array([$this->money, $method], static::getArguments($parameters));
 
         $methods = [
             'add', 'subtract',
@@ -94,19 +105,19 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * __callStatic.
      *
      * @param string $method
-     * @param array  $arguments
+     * @param array  $parameters
      *
-     * @return \Cknow\Money\Money
+     * @return \FmTod\Money\Money
      */
-    public static function __callStatic($method, array $arguments)
+    public static function __callStatic($method, array $parameters)
     {
         if (in_array($method, ['min', 'max', 'avg', 'sum'])) {
-            $result = call_user_func_array([\Money\Money::class, $method], static::getArguments($arguments));
+            $result = call_user_func_array([\Money\Money::class, $method], static::getArguments($parameters));
 
             return static::convert($result);
         }
 
-        return static::factoryCallStatic($method, $arguments);
+        return static::factoryCallStatic($method, $parameters);
     }
 
     /**
@@ -114,9 +125,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @param \Money\Money $instance
      *
-     * @return \Cknow\Money\Money
+     * @return \FmTod\Money\Money
      */
-    public static function convert(\Money\Money $instance)
+    public static function convert(\Money\Money $instance): Money
     {
         return static::fromMoney($instance);
     }
@@ -126,7 +137,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return \Money\Money
      */
-    public function getMoney()
+    public function getMoney(): \Money\Money
     {
         return $this->money;
     }
@@ -136,7 +147,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @param array $attributes
      */
-    public function attributes(array $attributes = [])
+    public function attributes(array $attributes = []): void
     {
         $this->attributes = $attributes;
     }
@@ -146,7 +157,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return array_merge(
             $this->attributes,
@@ -160,7 +171,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->jsonSerialize();
     }
@@ -172,7 +183,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return string
      */
-    public function toJson($options = 0)
+    public function toJson($options = 0): string
     {
         return json_encode($this->toArray(), $options);
     }
@@ -182,7 +193,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         return $this->format();
     }
@@ -194,7 +205,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return array
      */
-    private static function getArguments(array $arguments = [])
+    private static function getArguments(array $arguments = []): array
     {
         $args = [];
 
@@ -210,7 +221,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @param mixed $result
      *
-     * @return \Cknow\Money\Money|\Cknow\Money\Money[]
+     * @return \FmTod\Money\Money|\FmTod\Money\Money[]
      */
     private static function convertResult($result)
     {

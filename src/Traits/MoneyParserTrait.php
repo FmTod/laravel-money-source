@@ -1,7 +1,8 @@
 <?php
 
-namespace Cknow\Money;
+namespace FmTod\Money\Traits;
 
+use FmTod\Money\Money;
 use InvalidArgumentException;
 use Money\Currency;
 use Money\Currencies;
@@ -21,11 +22,11 @@ trait MoneyParserTrait
      *
      * @param mixed                       $value
      * @param \Money\Currency|string|null $currency
-     * @param iny                         $bitCointDigits
+     * @param int                         $bitCoinDigits
      *
-     * @return \Cknow\Money\Money|null
+     * @return \FmTod\Money\Money|null
      */
-    public static function parse($value, $currency = null, $bitCointDigits = 2)
+    public static function parse($value, $currency = null, $bitCoinDigits = 2)
     {
         if ($value instanceof Money) {
             return $value;
@@ -46,7 +47,7 @@ trait MoneyParserTrait
             try {
                 return static::parseByAggregate($value, null, [
                     new IntlMoneyParser(new NumberFormatter($locale, NumberFormatter::CURRENCY), $currencies),
-                    new BitcoinMoneyParser($bitCointDigits),
+                    new BitcoinMoneyParser($bitCoinDigits),
                 ]);
             } catch (ParserException $e) {
                 try {
@@ -75,7 +76,7 @@ trait MoneyParserTrait
      * @param string|null   $forceCurrency
      * @param MoneyParser[] $parsers
      *
-     * @return \Cknow\Money\Money
+     * @return \FmTod\Money\Money
      */
     public static function parseByAggregate($money, $forceCurrency = null, array $parsers = [])
     {
@@ -91,7 +92,7 @@ trait MoneyParserTrait
      * @param string|null $forceCurrency
      * @param int         $fractionDigits
      *
-     * @return \Cknow\Money\Money
+     * @return \FmTod\Money\Money
      */
     public static function parseByBitcoin($money, $forceCurrency = null, $fractionDigits = 2)
     {
@@ -107,7 +108,7 @@ trait MoneyParserTrait
      * @param string|null       $forceCurrency
      * @param \Money\Currencies $currencies
      *
-     * @return \Cknow\Money\Money
+     * @return \FmTod\Money\Money
      */
     public static function parseByDecimal($money, $forceCurrency = null, Currencies $currencies = null)
     {
@@ -125,7 +126,7 @@ trait MoneyParserTrait
      * @param \Money\Currencies $currencies
      * @param int               $style
      *
-     * @return \Cknow\Money\Money
+     * @return \FmTod\Money\Money
      */
     public static function parseByIntl(
         $money,
@@ -149,7 +150,7 @@ trait MoneyParserTrait
      * @param \Money\Currencies $currencies
      * @param int               $style
      *
-     * @return \Cknow\Money\Money
+     * @return \FmTod\Money\Money
      */
     public static function parseByIntlLocalizedDecimal(
         $money,
@@ -171,7 +172,7 @@ trait MoneyParserTrait
      * @param string             $money
      * @param string|null        $forceCurrency
      *
-     * @return \Cknow\Money\Money
+     * @return \FmTod\Money\Money
      */
     public static function parseByParser(MoneyParser $parser, $money, $forceCurrency = null)
     {
