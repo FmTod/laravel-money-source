@@ -114,7 +114,7 @@ trait MoneyParserTrait
     {
         $parser = new DecimalMoneyParser($currencies ?: static::getCurrencies());
 
-        return static::parseByParser($parser, $money, $forceCurrency);
+        return static::parseByParser($parser, (string)$money, $forceCurrency);
     }
 
     /**

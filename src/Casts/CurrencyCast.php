@@ -63,6 +63,10 @@ final class CurrencyCast implements CastsAttributes
             ? $model->getDefaultCurrencyFor($key)
             : Money::getDefaultCurrency();
 
+        if ($value instanceof Currency) {
+            return $value;
+        }
+
         return new Currency($value ?? $default);
     }
 }
