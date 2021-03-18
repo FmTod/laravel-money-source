@@ -6,7 +6,6 @@ use FmTod\Money\Model\HasCurrencyInterface;
 use FmTod\Money\Model\HasMoneyWithCurrencyInterface;
 use FmTod\Money\Money;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use InvalidArgumentException;
 use Money\Currency;
 
 class MoneyCast implements CastsAttributes

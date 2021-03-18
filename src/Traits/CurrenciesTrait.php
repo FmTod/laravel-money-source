@@ -16,7 +16,7 @@ trait CurrenciesTrait
     /**
      * @var string
      */
-    protected static $currency;
+    protected static $defaultCurrency;
 
     /**
      * @var \Money\Currencies
@@ -30,11 +30,11 @@ trait CurrenciesTrait
      */
     public static function getDefaultCurrency()
     {
-        if (!isset(static::$currency)) {
+        if (!isset(static::$defaultCurrency)) {
             static::setDefaultCurrency(config('money.defaultCurrency', config('money.currency', 'USD')));
         }
 
-        return static::$currency;
+        return static::$defaultCurrency;
     }
 
     /**
@@ -44,7 +44,7 @@ trait CurrenciesTrait
      */
     public static function setDefaultCurrency($currency)
     {
-        static::$currency = $currency;
+        static::$defaultCurrency = $currency;
     }
 
     /**
