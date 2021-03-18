@@ -15,7 +15,7 @@ class MoneyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/money.php', 'money');
+        $this->mergeConfigFrom(__DIR__.'/../Config/money.php', 'money');
     }
 
     /**
@@ -26,7 +26,7 @@ class MoneyServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
-            $this->publishes([__DIR__.'/../config/money.php' => config_path('money.php')], 'config');
+            $this->publishes([__DIR__.'/../Config/money.php' => config_path('money.php')], 'config');
         }
 
         $this->callAfterResolving(BladeCompiler::class, function ($blade) {
