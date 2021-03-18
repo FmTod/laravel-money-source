@@ -12,17 +12,6 @@ use Money\Currency;
 class MoneyCast implements CastsAttributes
 {
     /**
-     * Instantiate the class.
-     *
-     * @param string|null $currency
-     * @return void
-     */
-    public function __construct(string $currency = null)
-    {
-        $this->currency = $currency;
-    }
-
-    /**
      * Transform the attribute from the underlying model values.
      *
      * @param \Illuminate\Database\Eloquent\Model $model
