@@ -60,7 +60,7 @@ final class CurrencyCast implements CastsAttributes
     private function resolveCurrency(Model $model, string $key, $value): Currency
     {
         $default = $model instanceof HasCurrencyInterface
-            ? $model->getDefaultCurrencyFor($key)
+            ? $model->getDefaultCurrencyFor($key)->getCode()
             : Money::getDefaultCurrency();
 
         if ($value instanceof Currency) {
