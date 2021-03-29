@@ -68,7 +68,7 @@ class MoneyCast implements CastsAttributes
         }
 
         $default = $model instanceof HasCurrencyInterface
-            ? $model->getDefaultCurrencyFor($key)
+            ? $model->getDefaultCurrencyFor($key)->getCode()
             : null;
 
         return new Currency($attributes[$model->getCurrencyColumnFor($key)] ?? $default);
