@@ -51,14 +51,15 @@ class MoneyCast implements CastsAttributes
             ? $value
             : Money::parse($value, $this->resolveCurrencyColumn($model, $key, $attributes));
 
+        $decimalAmount = $money->formatByDecimal();
         if ($this->hasCurrencyColumn($model, $key)) {
             return [
-                $key => $money->getAmount(),
+                $key => $decimalAmount,
                 $model->getCurrencyColumnFor($key) => $money->getCurrency()->getCode(),
             ];
         }
 
-        return $money->getAmount();
+        return $decimalAmount;
     }
 
     private function resolveCurrencyColumn($model, string $key, $attributes): ?Currency
