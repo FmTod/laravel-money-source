@@ -26,11 +26,7 @@ class MoneyCast implements CastsAttributes
             return $value;
         }
 
-        return Money::parseByDecimal(
-            $value,
-            $this->resolveCurrencyColumn($model, $key, $attributes),
-            Money::getCurrencies()
-        );
+        return Money::parseByDecimal($value, $this->resolveCurrencyColumn($model, $key, $attributes));
     }
 
     /**
@@ -49,7 +45,7 @@ class MoneyCast implements CastsAttributes
     {
         $money = $value instanceof Money
             ? $value
-            : Money::parse($value, $this->resolveCurrencyColumn($model, $key, $attributes));
+            : Money::parseByDecimal($value, $this->resolveCurrencyColumn($model, $key, $attributes));
 
         $decimalAmount = $money->formatByDecimal();
         if ($this->hasCurrencyColumn($model, $key)) {
