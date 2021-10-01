@@ -43,6 +43,10 @@ class MoneyCast implements CastsAttributes
      */
     public function set($model, string $key, $value, array $attributes)
     {
+        if ($value === null) {
+            return $value;
+        }
+        
         $money = $value instanceof Money
             ? $value
             : Money::parseByDecimal($value, $this->resolveCurrencyColumn($model, $key, $attributes));
