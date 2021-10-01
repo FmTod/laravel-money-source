@@ -20,10 +20,9 @@ trait MoneyParserTrait
     /**
      * Convert the given value into an instance of Money.
      *
-     * @param mixed                       $value
-     * @param \Money\Currency|string|null $currency
-     * @param int                         $bitCoinDigits
-     *
+     * @param  mixed  $value
+     * @param  \Money\Currency|string|null  $currency
+     * @param  int                         $bitCoinDigits
      * @return \FmTod\Money\Money|null
      */
     public static function parse($value, $currency = null, $bitCoinDigits = 2)
@@ -72,10 +71,9 @@ trait MoneyParserTrait
     /**
      * Parse by aggregate.
      *
-     * @param string        $money
-     * @param string|null   $forceCurrency
-     * @param MoneyParser[] $parsers
-     *
+     * @param  string  $money
+     * @param  string|null  $forceCurrency
+     * @param  MoneyParser[]  $parsers
      * @return \FmTod\Money\Money
      */
     public static function parseByAggregate($money, $forceCurrency = null, array $parsers = [])
@@ -88,10 +86,9 @@ trait MoneyParserTrait
     /**
      * Parse by bitcoin.
      *
-     * @param string      $money
-     * @param string|null $forceCurrency
-     * @param int         $fractionDigits
-     *
+     * @param  string  $money
+     * @param  string|null  $forceCurrency
+     * @param  int  $fractionDigits
      * @return \FmTod\Money\Money
      */
     public static function parseByBitcoin($money, $forceCurrency = null, $fractionDigits = 2)
@@ -104,10 +101,9 @@ trait MoneyParserTrait
     /**
      * Parse by decimal.
      *
-     * @param string            $money
-     * @param string|null       $forceCurrency
-     * @param \Money\Currencies $currencies
-     *
+     * @param  string  $money
+     * @param  string|null  $forceCurrency
+     * @param  \Money\Currencies  $currencies
      * @return \FmTod\Money\Money
      */
     public static function parseByDecimal($money, $forceCurrency = null, Currencies $currencies = null)
@@ -120,12 +116,11 @@ trait MoneyParserTrait
     /**
      * Parse by intl.
      *
-     * @param string            $money
-     * @param string|null       $forceCurrency
-     * @param string|null       $locale
-     * @param \Money\Currencies $currencies
-     * @param int               $style
-     *
+     * @param  string  $money
+     * @param  string|null  $forceCurrency
+     * @param  string|null  $locale
+     * @param  \Money\Currencies  $currencies
+     * @param  int  $style
      * @return \FmTod\Money\Money
      */
     public static function parseByIntl(
@@ -144,12 +139,11 @@ trait MoneyParserTrait
     /**
      * Parse by intl localized decimal.
      *
-     * @param string            $money
-     * @param string            $forceCurrency
-     * @param string|null       $locale
-     * @param \Money\Currencies $currencies
-     * @param int               $style
-     *
+     * @param  string  $money
+     * @param  string  $forceCurrency
+     * @param  string|null  $locale
+     * @param  \Money\Currencies  $currencies
+     * @param  int  $style
      * @return \FmTod\Money\Money
      */
     public static function parseByIntlLocalizedDecimal(
@@ -168,14 +162,17 @@ trait MoneyParserTrait
     /**
      * Parse by parser.
      *
-     * @param \Money\MoneyParser $parser
-     * @param string             $money
-     * @param string|null        $forceCurrency
-     *
+     * @param  \Money\MoneyParser  $parser
+     * @param  string  $money
+     * @param  string|null  $forceCurrency
      * @return \FmTod\Money\Money
      */
     public static function parseByParser(MoneyParser $parser, $money, $forceCurrency = null)
     {
+        if (is_string($forceCurrency)) {
+            $forceCurrency = new Currency($forceCurrency);
+        }
+
         return static::convert($parser->parse($money, $forceCurrency));
     }
 }

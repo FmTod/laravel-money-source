@@ -8,6 +8,7 @@ use Money\Currency;
 use Money\Currencies\ISOCurrencies;
 use Money\Currencies\BitcoinCurrencies;
 use Money\Currencies\AggregateCurrencies;
+use Money\Currencies\BitcoinCurrencies;
 use Money\Currencies\CurrencyList;
 use function config;
 
@@ -40,7 +41,7 @@ trait CurrenciesTrait
     /**
      * Set default currency.
      *
-     * @param string $currency
+     * @param  string  $currency
      */
     public static function setDefaultCurrency($currency)
     {
@@ -54,7 +55,7 @@ trait CurrenciesTrait
      */
     public static function getCurrencies()
     {
-        if (!isset(static::$currencies)) {
+        if (! isset(static::$currencies)) {
             static::setCurrencies(config('money.currencies', []));
         }
 
@@ -64,7 +65,7 @@ trait CurrenciesTrait
     /**
      * Set currencies.
      *
-     * @param \Money\Currencies|array|null $currencies
+     * @param  \Money\Currencies|array|null  $currencies
      */
     public static function setCurrencies($currencies)
     {
@@ -76,13 +77,12 @@ trait CurrenciesTrait
     /**
      * Make currencies according to array derived from config or anywhere else.
      *
-     * @param array|null $currenciesConfig
-     *
+     * @param  array|null  $currenciesConfig
      * @return \Money\Currencies
      */
     private static function makeCurrencies($currenciesConfig)
     {
-        if (!$currenciesConfig || !is_array($currenciesConfig)) {
+        if (! $currenciesConfig || ! is_array($currenciesConfig)) {
             // for backward compatibility
             return new ISOCurrencies();
         }
@@ -115,13 +115,12 @@ trait CurrenciesTrait
     /**
      * Make currencies list according to array for specified source.
      *
-     * @param array|string $config
-     * @param \Money\Currencies $currencies
-     * @param string $sourceName
+     * @param  array|string  $config
+     * @param  \Money\Currencies  $currencies
+     * @param  string  $sourceName
+     * @return \Money\Currencies
      *
      * @throws \InvalidArgumentException
-     *
-     * @return \Money\Currencies
      */
     private static function makeCurrenciesForSource($config, Currencies $currencies, $sourceName)
     {
@@ -135,7 +134,7 @@ trait CurrenciesTrait
             foreach ($config as $index => $currencyCode) {
                 $currency = new Currency($currencyCode);
 
-                if (!$currencies->contains($currency)) {
+                if (! $currencies->contains($currency)) {
                     throw new InvalidArgumentException(
                         sprintf('Unknown %s currency code: %s', $sourceName, $currencyCode)
                     );

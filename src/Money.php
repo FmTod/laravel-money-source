@@ -60,9 +60,8 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * __call.
      *
-     * @param string $method
-     * @param array  $parameters
-     *
+     * @param  string  $method
+     * @param  array  $parameters
      * @return \FmTod\Money\Money|\FmTod\Money\Money[]|mixed
      */
     public function __call($method, array $parameters)
@@ -71,7 +70,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             return $this->macroCall($method, $parameters);
         }
 
-        if (!method_exists($this->money, $method)) {
+        if (! method_exists($this->money, $method)) {
             return $this;
         }
 
@@ -84,7 +83,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             'allocate', 'allocateTo',
         ];
 
-        if (!in_array($method, $methods)) {
+        if (! in_array($method, $methods)) {
             return $result;
         }
 
@@ -104,9 +103,8 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * __callStatic.
      *
-     * @param string $method
-     * @param array  $parameters
-     *
+     * @param  string  $method
+     * @param  array  $parameters
      * @return \FmTod\Money\Money
      */
     public static function __callStatic($method, array $parameters)
@@ -123,8 +121,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Convert.
      *
-     * @param \Money\Money $instance
-     *
+     * @param  \Money\Money  $instance
      * @return \FmTod\Money\Money
      */
     public static function convert(\Money\Money $instance): Money
@@ -145,7 +142,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Attributes.
      *
-     * @param array $attributes
+     * @param  array  $attributes
      */
     public function attributes(array $attributes = []): void
     {
@@ -179,8 +176,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Convert the object to its JSON representation.
      *
-     * @param int $options
-     *
+     * @param  int  $options
      * @return string
      */
     public function toJson($options = 0): string
@@ -201,8 +197,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Get arguments.
      *
-     * @param array $arguments
-     *
+     * @param  array  $arguments
      * @return array
      */
     private static function getArguments(array $arguments = []): array
@@ -219,13 +214,12 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Convert result.
      *
-     * @param mixed $result
-     *
+     * @param  mixed  $result
      * @return \FmTod\Money\Money|\FmTod\Money\Money[]
      */
     private static function convertResult($result)
     {
-        if (!is_array($result)) {
+        if (! is_array($result)) {
             return static::convert($result);
         }
 
