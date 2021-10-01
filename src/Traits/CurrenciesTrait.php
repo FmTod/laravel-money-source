@@ -8,7 +8,6 @@ use Money\Currency;
 use Money\Currencies\ISOCurrencies;
 use Money\Currencies\BitcoinCurrencies;
 use Money\Currencies\AggregateCurrencies;
-use Money\Currencies\BitcoinCurrencies;
 use Money\Currencies\CurrencyList;
 use function config;
 
