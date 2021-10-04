@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
         "ext-intl": "*",
         "ext-json": "*",
         "brick/money": "^0.5.1",

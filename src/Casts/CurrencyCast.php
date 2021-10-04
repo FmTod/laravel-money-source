@@ -29,7 +29,7 @@ final class CurrencyCast implements CastsAttributes
      * @return \Money\Currency
      * @throws \Money\Exception\UnknownCurrencyException
      */
-    public function get($model, $key, $value, $attributes)
+    public function get($model, $key, $value, $attributes): Currency
     {
         return $this->resolveCurrency($model, $key, $value);
     }
@@ -45,12 +45,14 @@ final class CurrencyCast implements CastsAttributes
      * @return string
      * @throws \Money\Exception\UnknownCurrencyException
      */
-    public function set($model, $key, $value, $attributes)
+    public function set($model, $key, $value, $attributes): string
     {
         return $this->resolveCurrency($model, $key, $value)->getCode();
     }
 
     /**
+     * Resolve currency from the currency column in the model or the default currency.
+     *
      * @param \Illuminate\Database\Eloquent\Model $model
      * @param string $key
      * @param \Money\Currency|string $value
