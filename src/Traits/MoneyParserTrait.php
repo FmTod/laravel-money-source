@@ -23,7 +23,7 @@ trait MoneyParserTrait
      * @param  mixed  $value
      * @param  \Money\Currency|string|null  $currency
      * @param  int                         $bitCoinDigits
-     * @return \FmTod\Money\Money|null
+     * @return \FmTod\Money\Money
      */
     public static function parse($value, $currency = null, $bitCoinDigits = 2)
     {
