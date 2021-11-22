@@ -57,11 +57,7 @@ trait MoneyParserTrait
             }
         }
 
-        if (is_string($value)) {
-            return new Money($value, $currency);
-        }
-
-        if (is_int($value) || is_float($value)) {
+        if (is_int($value) || is_float($value) || is_string($value)) {
             return static::parseByDecimal((string) $value, $currency);
         }
 
