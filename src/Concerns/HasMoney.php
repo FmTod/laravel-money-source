@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace FmTod\Money\Model;
+namespace FmTod\Money\Concerns;
 
 use FmTod\Money\Casts\MoneyCast;
+use function format_money_as_currency;
+use function format_money_as_decimal;
 
 /**
  * Trait HasMoney
@@ -14,10 +16,7 @@ use FmTod\Money\Casts\MoneyCast;
  */
 trait HasMoney
 {
-    /**
-     * @var array
-     */
-    private $moneyCasts = [];
+    private array $moneyCasts = [];
 
     protected function initializeHasMoney(): void
     {
@@ -51,7 +50,7 @@ trait HasMoney
      *
      * @return mixed
      */
-    public function __get($key)
+    public function __get(string $key)
     {
         if (!$this->hasAccessor($key)) {
             return parent::__get($key);

@@ -2,8 +2,8 @@
 
 namespace FmTod\Money\Casts;
 
-use FmTod\Money\Model\HasCurrencyInterface;
-use FmTod\Money\Model\HasMoneyWithCurrencyInterface;
+use FmTod\Money\Contracts\HasCurrencyInterface;
+use FmTod\Money\Contracts\HasMoneyWithCurrencyInterface;
 use FmTod\Money\Money;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Money\Currency;

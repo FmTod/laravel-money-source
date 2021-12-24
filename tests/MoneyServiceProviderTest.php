@@ -2,7 +2,7 @@
 
 namespace FmTod\Money\Tests;
 
-use FmTod\Money\Providers\MoneyServiceProvider;
+use FmTod\Money\MoneyServiceProvider;
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
 
 class MoneyServiceProviderTest extends AbstractPackageTestCase

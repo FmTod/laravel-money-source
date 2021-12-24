@@ -2,7 +2,11 @@
 
 declare(strict_types=1);
 
-namespace FmTod\Money\Model;
+namespace FmTod\Money\Concerns;
+
+use FmTod\Money\Concerns\HasCurrency;
+use FmTod\Money\Concerns\HasMoney;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * Trait HasMoneyWithCurrency
@@ -13,12 +17,9 @@ namespace FmTod\Money\Model;
 trait HasMoneyWithCurrency
 {
     use HasMoney;
+    use HasCurrency;
 
-    /**
-     * @var array
-     */
-    private $moneyCasts = [];
-
+    #[Pure]
     public function getCurrencyColumnFor(string $field): string
     {
         return $this->getCurrencyColumn();

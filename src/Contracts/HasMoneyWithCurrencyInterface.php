@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FmTod\Money\Model;
+namespace FmTod\Money\Contracts;
 
 /**
  * Interface HasMoneyWithCurrencyInterface

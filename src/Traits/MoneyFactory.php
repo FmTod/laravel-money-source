@@ -1,6 +1,6 @@
 <?php
 
-namespace FmTod\Money\Concerns;
+namespace FmTod\Money\Traits;
 
 use FmTod\Money\Money;
 use Money\Currency;
@@ -9,6 +9,7 @@ use Money\Currency;
  * Money.
  *
  * @method static Money AED(int|string $amount)
+ * @method static Money AFN(int|string $amount)
  * @method static Money ALL(int|string $amount)
  * @method static Money AMD(int|string $amount)
  * @method static Money ANG(int|string $amount)
@@ -160,7 +161,7 @@ use Money\Currency;
  * @method static Money UYI(int|string $amount)
  * @method static Money UYU(int|string $amount)
  * @method static Money UZS(int|string $amount)
- * @method static Money VEF(int|string $amount)
+ * @method static Money VES(int|string $amount)
  * @method static Money VND(int|string $amount)
  * @method static Money VUV(int|string $amount)
  * @method static Money WST(int|string $amount)
@@ -171,7 +172,6 @@ use Money\Currency;
  * @method static Money XBB(int|string $amount)
  * @method static Money XBC(int|string $amount)
  * @method static Money XBD(int|string $amount)
- * @method static Money XBT(int|string $amount)
  * @method static Money XCD(int|string $amount)
  * @method static Money XDR(int|string $amount)
  * @method static Money XOF(int|string $amount)
@@ -197,7 +197,7 @@ trait MoneyFactory
      * @return \FmTod\Money\Money
      * @throws \Money\Exception\UnknownCurrencyException
      */
-    public static function __callStatic($method, array $parameters)
+    public static function __callStatic(string $method, array $parameters)
     {
         return new Money($parameters[0], new Currency($method));
     }
@@ -209,7 +209,7 @@ trait MoneyFactory
      * @return \FmTod\Money\Money
      * @throws \Money\Exception\UnknownCurrencyException
      */
-    public static function fromMoney(\Money\Money $instance)
+    public static function fromMoney(\Money\Money $instance): Money
     {
         return new Money($instance->getAmount(), $instance->getCurrency());
     }

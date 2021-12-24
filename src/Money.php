@@ -2,19 +2,50 @@
 
 namespace FmTod\Money;
 
-use FmTod\Money\Concerns\MoneyFactory;
 use FmTod\Money\Traits\CurrenciesTrait;
 use FmTod\Money\Traits\LocaleTrait;
+use FmTod\Money\Traits\MoneyFactory;
 use FmTod\Money\Traits\MoneyFormatterTrait;
 use FmTod\Money\Traits\MoneyParserTrait;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Traits\Macroable;
+use JetBrains\PhpStorm\Pure;
 use JsonSerializable;
 use Money\Currency;
 
 /**
+ * @method bool isSameCurrency(Money ...$others)
+ * @method bool equals(Money $other)
+ * @method int compare(Money $other)
+ * @method bool greaterThan(Money $other)
+ * @method bool greaterThanOrEqual(Money $other)
+ * @method bool lessThan(Money $other)
+ * @method bool lessThanOrEqual(Money $other)
+ * @method string getAmount()
+ * @method \Money\Currency getCurrency()
+ * @method \FmTod\Money\Money add(Money ...$addends)
+ * @method \FmTod\Money\Money subtract(Money ...$subtrahends)
+ * @method \FmTod\Money\Money multiply(int|string $multiplier, int $roundingMode = \FmTod\Money\Money::ROUND_HALF_UP)
+ * @method \FmTod\Money\Money divide(int|string $divisor, int $roundingMode = \FmTod\Money\Money::ROUND_HALF_UP)
+ * @method \FmTod\Money\Money mod(Money $divisor)
+ * @method array allocate(array $ratios)
+ * @method array allocateTo(int $n)
+ * @method string ratioOf(Money $money)
+ * @method \FmTod\Money\Money roundToUnit(int $unit, int $roundingMode = \FmTod\Money\Money::ROUND_HALF_UP)
+ * @method \FmTod\Money\Money absolute()
+ * @method \FmTod\Money\Money negative()
+ * @method bool isZero()
+ * @method bool isPositive()
+ * @method bool isNegative()
+ * @method \FmTod\Money\Money min(\FmTod\Money\Money $first, \FmTod\Money\Money ...$collection)
+ * @method \FmTod\Money\Money max(\FmTod\Money\Money $first, \FmTod\Money\Money ...$collection)
+ * @method \FmTod\Money\Money sum(\FmTod\Money\Money $first, \FmTod\Money\Money ...$collection)
+ * @method \FmTod\Money\Money avg(\FmTod\Money\Money $first, \FmTod\Money\Money ...$collection)
+ * @method void registerCalculator(string $calculator)
+ * @method string getCalculator()
+ *
  * @mixin \Money\Money
  */
 class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
@@ -30,15 +61,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         Macroable::__call as macroCall;
     }
 
-    /**
-     * @var \Money\Money
-     */
-    protected $money;
+    protected \Money\Money $money;
 
-    /**
-     * @var array
-     */
-    protected $attributes = [];
+    protected array $attributes = [];
 
     /**
      * Money.
@@ -48,7 +73,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @return void
      * @throws \Money\Exception\UnknownCurrencyException
      */
-    public function __construct($amount, $currency)
+    public function __construct(int|string $amount, Currency|string $currency)
     {
         if (!$currency instanceof Currency) {
             $currency = new Currency($currency);
@@ -200,6 +225,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @param  array  $arguments
      * @return array
      */
+    #[Pure]
     private static function getArguments(array $arguments = []): array
     {
         $args = [];
@@ -217,7 +243,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @param  mixed  $result
      * @return \FmTod\Money\Money|\FmTod\Money\Money[]
      */
-    private static function convertResult($result)
+    private static function convertResult(mixed $result): Money|array
     {
         if (! is_array($result)) {
             return static::convert($result);

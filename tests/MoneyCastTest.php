@@ -3,7 +3,7 @@
 namespace FmTod\Money\Tests;
 
 use FmTod\Money\Money;
-use FmTod\Money\Providers\MoneyServiceProvider;
+use FmTod\Money\MoneyServiceProvider;
 use FmTod\Money\Tests\Database\Models\User;
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;

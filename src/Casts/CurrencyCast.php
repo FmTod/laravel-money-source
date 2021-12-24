@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FmTod\Money\Casts;
 
-use FmTod\Money\Model\HasCurrencyInterface;
+use FmTod\Money\Contracts\HasCurrencyInterface;
 use FmTod\Money\Money;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;

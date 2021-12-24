@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FmTod\Money\Model;
+namespace FmTod\Money\Concerns;
 
 use FmTod\Money\Casts\CurrencyCast;
 use FmTod\Money\Money;
