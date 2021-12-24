@@ -9,6 +9,7 @@ return [
     'locale' => config('app.locale', 'en_US'),
     'defaultCurrency' => config('app.currency', 'USD'),
     'defaultFormatter' => null,
+    'serializer' => FmTod\Money\Serializers\DefaultSerializer::class,
     'currencies' => [
         'iso' => 'all',
         'bitcoin' => 'all',

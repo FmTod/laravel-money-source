@@ -162,17 +162,6 @@ class MoneyTest extends TestCase
         static::assertEquals('$1.00', $money);
     }
 
-    public function testSerializeWithAttributes()
-    {
-        $money = new Money(100, new Currency('USD'));
-        $money->attributes(['foo' => 'bar']);
-
-        static::assertEquals(
-            $money->jsonSerialize(),
-            ['amount' => '100', 'currency' => 'USD', 'formatted' => '$1.00', 'foo' => 'bar']
-        );
-    }
-
     public function testMacroable()
     {
         Money::macro('someMacro', function () {

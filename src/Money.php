@@ -2,6 +2,8 @@
 
 namespace FmTod\Money;
 
+use FmTod\Money\Contracts\MoneySerializer;
+use FmTod\Money\Serializers\DefaultSerializer;
 use FmTod\Money\Traits\CurrenciesTrait;
 use FmTod\Money\Traits\LocaleTrait;
 use FmTod\Money\Traits\MoneyFactory;
@@ -165,27 +167,19 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
-     * Attributes.
-     *
-     * @param  array  $attributes
-     */
-    public function attributes(array $attributes = []): void
-    {
-        $this->attributes = $attributes;
-    }
-
-    /**
      * Json serialize.
      *
      * @return array
      */
     public function jsonSerialize(): array
     {
-        return array_merge(
-            $this->attributes,
-            $this->money->jsonSerialize(),
-            ['formatted' => $this->render()]
-        );
+        $serializer = config('money.serializer', DefaultSerializer::class);
+
+        if (! in_array(MoneySerializer::class, class_implements($serializer), true)) {
+            throw new \RuntimeException('The serializer class must implement the MoneySerializer class');
+        }
+
+        return new $serializer($this);
     }
 
     /**

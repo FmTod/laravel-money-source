@@ -19,10 +19,9 @@ trait MoneyFormatterTrait
      * Format.
      *
      * @param string|null $locale
-     * @param \Money\Currencies $currencies
+     * @param \Money\Currencies|null $currencies
      * @param int $style
      * @return string
-     * @throws \JsonException
      */
     public function format(string $locale = null, Currencies $currencies = null, int $style = NumberFormatter::CURRENCY): string
     {
@@ -46,7 +45,7 @@ trait MoneyFormatterTrait
             return $this->formatByFormatter($formatter);
         }
 
-        throw new InvalidArgumentException(sprintf('Invalid default formatter %s', json_encode($defaultFormatter, JSON_THROW_ON_ERROR)));
+        throw new InvalidArgumentException(sprintf('Invalid default formatter %s', $defaultFormatter));
     }
 
     /**
