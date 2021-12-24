@@ -50,7 +50,7 @@ trait HasMoney
      *
      * @return mixed
      */
-    public function __get(string $key)
+    public function __get($key)
     {
         if (!$this->hasAccessor($key)) {
             return parent::__get($key);
