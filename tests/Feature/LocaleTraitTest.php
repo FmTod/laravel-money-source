@@ -1,11 +1,11 @@
 <?php
 
-namespace FmTod\Money\Tests;
+namespace FmTod\Money\Tests\Feature;
 
+use FmTod\Money\Tests\TestCase;
 use FmTod\Money\Traits\LocaleTrait;
-use GrahamCampbell\TestBench\AbstractPackageTestCase;
 
-class LocaleTraitTest extends AbstractPackageTestCase
+class LocaleTraitTest extends TestCase
 {
     public function testGetLocale()
     {

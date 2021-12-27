@@ -1,6 +1,6 @@
 <?php
 
-namespace FmTod\Money\Tests;
+namespace FmTod\Money\Tests\Feature;
 
 use FmTod\Money\MoneyServiceProvider;
 use GrahamCampbell\TestBench\AbstractPackageTestCase;

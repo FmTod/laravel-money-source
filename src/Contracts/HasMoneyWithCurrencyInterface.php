@@ -10,7 +10,9 @@ namespace FmTod\Money\Contracts;
  * @author Serhii Andriichuk <andriichuk29@gmail.com>
  * @editor FmTod <it@fmtod.com>
  */
-interface HasMoneyWithCurrencyInterface
+interface HasMoneyWithCurrencyInterface extends HasCurrencyInterface
 {
-    public function getCurrencyColumnFor(string $field): string;
+    public function hasCurrencyColumnFor(string $field): bool;
+
+    public function getCurrencyColumnFor(string $field): ?string;
 }

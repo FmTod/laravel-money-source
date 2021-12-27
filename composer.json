@@ -28,6 +28,7 @@
         "graham-campbell/testbench": "^5.6",
         "illuminate/filesystem": "^7.0|^8.0",
         "mockery/mockery": "^1.4",
+        "pestphp/pest": "^1.21",
         "phpunit/phpunit": "^8.5|^9.0",
         "spatie/phpunit-watcher": "^1.0"
     },
@@ -60,7 +61,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "test": "vendor/bin/phpunit",
+        "test": "vendor/bin/pest",
         "watch": "vendor/bin/phpunit-watcher watch"
     }
 }

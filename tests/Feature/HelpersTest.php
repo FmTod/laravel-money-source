@@ -1,12 +1,23 @@
 <?php
 
-namespace FmTod\Money\Tests;
+namespace FmTod\Money\Tests\Feature;
 
 use FmTod\Money\Money;
-use GrahamCampbell\TestBench\AbstractPackageTestCase;
+use FmTod\Money\Tests\TestCase;
 use Money\Currency;
+use function currency;
+use function money;
+use function money_avg;
+use function money_max;
+use function money_min;
+use function money_parse;
+use function money_parse_by_bitcoin;
+use function money_parse_by_decimal;
+use function money_parse_by_intl;
+use function money_parse_by_intl_localized_decimal;
+use function money_sum;
 
-class HelpersTest extends AbstractPackageTestCase
+class HelpersTest extends TestCase
 {
     public function testCurrency()
     {

@@ -17,10 +17,7 @@ use Money\Currency;
  */
 trait HasCurrency
 {
-    /**
-     * @var array
-     */
-    private $currencyFields = [];
+    private array $currencyFields = [];
 
     protected function initializeHasCurrency(): void
     {

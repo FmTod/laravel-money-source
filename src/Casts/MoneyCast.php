@@ -6,12 +6,14 @@ use FmTod\Money\Contracts\HasCurrencyInterface;
 use FmTod\Money\Contracts\HasMoneyWithCurrencyInterface;
 use FmTod\Money\Money;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use InvalidArgumentException;
 use Money\Currency;
 
 class MoneyCast implements CastsAttributes
 {
     public function __construct(
-        protected bool $updateCurrencyColumn = true
+        protected bool    $updateCurrencyColumn = true,
+        protected ?string $forceCurrency = null,
     ) {}
 
     /**
@@ -29,7 +31,7 @@ class MoneyCast implements CastsAttributes
             return null;
         }
 
-        return Money::parseByDecimal($value, $this->resolveCurrencyColumn($model, $key, $attributes));
+        return Money::parse($value, $this->resolveCurrencyColumn($model, $key, $attributes));
     }
 
     /**
@@ -47,20 +49,23 @@ class MoneyCast implements CastsAttributes
             return null;
         }
 
-        $money = $value instanceof Money
-            ? $value
-            : Money::parseByDecimal($value, $this->resolveCurrencyColumn($model, $key, $attributes));
+        try {
+            $currency = $this->resolveCurrencyColumn($model, $key, $attributes);
+            $money = Money::parse($value, $currency);
+        } catch (InvalidArgumentException $e) {
+            throw new InvalidArgumentException(
+                sprintf('Invalid data provided for %s::$%s', get_class($model), $key)
+            );
+        }
 
-        $decimalAmount = $money->formatByDecimal();
-
-        if ($this->updateCurrencyColumn && $this->hasCurrencyColumn($model, $key)) {
+        if ($this->updateCurrencyColumn && $model instanceof HasMoneyWithCurrencyInterface && $model->hasCurrencyColumnFor($key)) {
             return [
-                $key => $decimalAmount,
+                $key => $money->format(),
                 $model->getCurrencyColumnFor($key) => $money->getCurrency()->getCode(),
             ];
         }
 
-        return $decimalAmount;
+        return $money->format();
     }
 
     /**
@@ -69,30 +74,22 @@ class MoneyCast implements CastsAttributes
      * @param $model
      * @param string $key
      * @param $attributes
-     * @return \Money\Currency|null
+     * @return \Money\Currency
      */
-    private function resolveCurrencyColumn($model, string $key, $attributes): ?Currency
+    private function resolveCurrencyColumn($model, string $key, $attributes): Currency
     {
-        if (!$this->hasCurrencyColumn($model, $key)) {
-            return null;
+        if (! is_null($this->forceCurrency)) {
+            return new Currency($this->forceCurrency);
         }
 
-        $default = $model instanceof HasCurrencyInterface
-            ? $model->getDefaultCurrencyFor($key)->getCode()
-            : null;
+        if ($model instanceof HasMoneyWithCurrencyInterface) {
+            if ($model->hasCurrencyColumnFor($key) && isset($attributes[$model->getCurrencyColumnFor($key)])) {
+                return new Currency($attributes[$model->getCurrencyColumnFor($key)]);
+            }
 
-        return new Currency($attributes[$model->getCurrencyColumnFor($key)] ?? $default);
-    }
+            return $model->getDefaultCurrencyFor($key);
+        }
 
-    /**
-     * Determine if the provided model has a currency column for the provided attribute.
-     *
-     * @param $model
-     * @param $key
-     * @return bool
-     */
-    private function hasCurrencyColumn($model, $key): bool
-    {
-        return $model instanceof HasMoneyWithCurrencyInterface && $model->getCurrencyColumnFor($key);
+        return new Currency(Money::getDefaultCurrency());
     }
 }

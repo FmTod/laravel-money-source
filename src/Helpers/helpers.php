@@ -19,13 +19,13 @@ if (! function_exists('money')) {
      *
      * @param  int|string  $amount
      * @param  string  $currency
-     * @return \Fmtod\Money\Money
+     * @return \FmTod\Money\Money
      */
     function money($amount, $currency = null)
     {
-        return new Fmtod\Money\Money(
+        return new \FmTod\Money\Money(
             $amount,
-            new \Money\Currency($currency ?: Fmtod\Money\Money::getDefaultCurrency())
+            new \Money\Currency($currency ?: \FmTod\Money\Money::getDefaultCurrency())
         );
     }
 }
@@ -34,13 +34,13 @@ if (! function_exists('money_min')) {
     /**
      * money min.
      *
-     * @param  \Fmtod\Money\Money  $first
-     * @param  \Fmtod\Money\Money  ...$collection
-     * @return \Fmtod\Money\Money
+     * @param  \FmTod\Money\Money  $first
+     * @param  \FmTod\Money\Money  ...$collection
+     * @return \FmTod\Money\Money
      */
-    function money_min(Fmtod\Money\Money $first, Fmtod\Money\Money ...$collection)
+    function money_min(\FmTod\Money\Money $first, \FmTod\Money\Money ...$collection)
     {
-        return \Fmtod\Money\Money::min($first, ...$collection);
+        return \FmTod\Money\Money::min($first, ...$collection);
     }
 }
 
@@ -48,13 +48,13 @@ if (! function_exists('money_max')) {
     /**
      * money max.
      *
-     * @param  \Fmtod\Money\Money  $first
-     * @param  \Fmtod\Money\Money  ...$collection
-     * @return \Fmtod\Money\Money
+     * @param  \FmTod\Money\Money  $first
+     * @param  \FmTod\Money\Money  ...$collection
+     * @return \FmTod\Money\Money
      */
-    function money_max(Fmtod\Money\Money $first, Fmtod\Money\Money ...$collection)
+    function money_max(\FmTod\Money\Money $first, \FmTod\Money\Money ...$collection)
     {
-        return \Fmtod\Money\Money::max($first, ...$collection);
+        return \FmTod\Money\Money::max($first, ...$collection);
     }
 }
 
@@ -62,13 +62,13 @@ if (! function_exists('money_avg')) {
     /**
      * money avg.
      *
-     * @param  \Fmtod\Money\Money  $first
-     * @param  \Fmtod\Money\Money  ...$collection
-     * @return \Fmtod\Money\Money
+     * @param  \FmTod\Money\Money  $first
+     * @param  \FmTod\Money\Money  ...$collection
+     * @return \FmTod\Money\Money
      */
-    function money_avg(Fmtod\Money\Money $first, Fmtod\Money\Money ...$collection)
+    function money_avg(\FmTod\Money\Money $first, \FmTod\Money\Money ...$collection)
     {
-        return \Fmtod\Money\Money::avg($first, ...$collection);
+        return \FmTod\Money\Money::avg($first, ...$collection);
     }
 }
 
@@ -76,13 +76,13 @@ if (! function_exists('money_sum')) {
     /**
      * money sum.
      *
-     * @param  \Fmtod\Money\Money  $first
-     * @param  \Fmtod\Money\Money  ...$collection
-     * @return \Fmtod\Money\Money
+     * @param  \FmTod\Money\Money  $first
+     * @param  \FmTod\Money\Money  ...$collection
+     * @return \FmTod\Money\Money
      */
-    function money_sum(Fmtod\Money\Money $first, Fmtod\Money\Money ...$collection)
+    function money_sum(\FmTod\Money\Money $first, \FmTod\Money\Money ...$collection)
     {
-        return \Fmtod\Money\Money::sum($first, ...$collection);
+        return \FmTod\Money\Money::sum($first, ...$collection);
     }
 }
 
@@ -92,11 +92,11 @@ if (! function_exists('money_parse')) {
      *
      * @param  mixed  $value
      * @param  \Money\Currency|string|null  $currency
-     * @return \Fmtod\Money\Money|null
+     * @return \FmTod\Money\Money|null
      */
     function money_parse($value, $currency = null)
     {
-        return \Fmtod\Money\Money::parse($value, $currency);
+        return \FmTod\Money\Money::parse($value, $currency);
     }
 }
 
@@ -107,11 +107,11 @@ if (! function_exists('money_parse_by_bitcoin')) {
      * @param  string  $money
      * @param  string|null  $fallbackCurrency
      * @param  int  $fractionDigits
-     * @return \Fmtod\Money\Money
+     * @return \FmTod\Money\Money
      */
     function money_parse_by_bitcoin($money, $fallbackCurrency = null, $fractionDigits = 2)
     {
-        return \Fmtod\Money\Money::parseByBitcoin($money, $fallbackCurrency, $fractionDigits);
+        return \FmTod\Money\Money::parseByBitcoin($money, $fallbackCurrency, $fractionDigits);
     }
 }
 
@@ -126,7 +126,7 @@ if (! function_exists('money_parse_by_decimal')) {
      */
     function money_parse_by_decimal($money, $fallbackCurrency = null, Money\Currencies $currencies = null)
     {
-        return \Fmtod\Money\Money::parseByDecimal($money, $fallbackCurrency, $currencies);
+        return \FmTod\Money\Money::parseByDecimal($money, $fallbackCurrency, $currencies);
     }
 }
 
@@ -142,7 +142,7 @@ if (! function_exists('money_parse_by_intl')) {
      */
     function money_parse_by_intl($money, $fallbackCurrency = null, $locale = null, Money\Currencies $currencies = null)
     {
-        return \Fmtod\Money\Money::parseByIntl($money, $fallbackCurrency, $locale, $currencies);
+        return \FmTod\Money\Money::parseByIntl($money, $fallbackCurrency, $locale, $currencies);
     }
 }
 
@@ -162,19 +162,19 @@ if (! function_exists('money_parse_by_intl_localized_decimal')) {
         $locale = null,
         \Money\Currencies $currencies = null
     ) {
-        return \Fmtod\Money\Money::parseByIntlLocalizedDecimal($money, $fallbackCurrency, $locale, $currencies);
+        return \FmTod\Money\Money::parseByIntlLocalizedDecimal($money, $fallbackCurrency, $locale, $currencies);
     }
 }
 
 if (!function_exists('format_money_as_currency')) {
-    function format_money_as_currency(\Fmtod\Money\Money $money, string $locale = null): string
+    function format_money_as_currency(\FmTod\Money\Money $money, string $locale = null): string
     {
        return $money->format($locale);
     }
 }
 
 if (!function_exists('format_money_as_decimal')) {
-    function format_money_as_decimal(\Fmtod\Money\Money $money): string
+    function format_money_as_decimal(\FmTod\Money\Money $money): string
     {
         return $money->formatByDecimal();
     }

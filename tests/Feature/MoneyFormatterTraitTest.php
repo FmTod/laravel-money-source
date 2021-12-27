@@ -1,15 +1,15 @@
 <?php
 
-namespace FmTod\Money\Tests;
+namespace FmTod\Money\Tests\Feature;
 
 use FmTod\Money\Money;
+use FmTod\Money\Tests\TestCase;
 use Money\Currencies\BitcoinCurrencies;
 use Money\Formatter\BitcoinMoneyFormatter;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Formatter\IntlLocalizedDecimalFormatter;
 use Money\Formatter\IntlMoneyFormatter;
-use NumberFormatter as N;
-use PHPUnit\Framework\TestCase;
+use NumberFormatter;
 
 class MoneyFormatterTraitTest extends TestCase
 {
@@ -18,9 +18,9 @@ class MoneyFormatterTraitTest extends TestCase
         static::assertEquals('$1.00', Money::USD(100)->format());
         static::assertEquals('€1.00', Money::EUR(100)->format());
         static::assertEquals('€1.00', Money::EUR(100)->format('en_US'));
-        static::assertEquals('$1.00', Money::USD(100)->format('en_US', Money::getCurrencies(), N::CURRENCY));
-        static::assertEquals('1,99', Money::EUR(199)->format('fr_FR', Money::getCurrencies(), N::DECIMAL));
-        static::assertEquals('1', Money::USD(100)->format('en_US', Money::getCurrencies(), N::DECIMAL));
+        static::assertEquals('$1.00', Money::USD(100)->format('en_US', Money::getCurrencies()));
+        static::assertEquals('1,99', Money::EUR(199)->format('fr_FR', Money::getCurrencies(), NumberFormatter::DECIMAL));
+        static::assertEquals('1', Money::USD(100)->format('en_US', Money::getCurrencies(), NumberFormatter::DECIMAL));
     }
 
     public function testFormatByAggregate()
@@ -28,8 +28,8 @@ class MoneyFormatterTraitTest extends TestCase
         $formatters = [
             'XBT' => new BitcoinMoneyFormatter(2, new BitcoinCurrencies()),
             'EUR' => new DecimalMoneyFormatter(Money::getCurrencies()),
-            'USD' => new IntlLocalizedDecimalFormatter(new N('en_US', N::DECIMAL), Money::getCurrencies()),
-            'BRL' => new IntlMoneyFormatter(new N('pt_BR', N::DECIMAL), Money::getCurrencies()),
+            'USD' => new IntlLocalizedDecimalFormatter(new NumberFormatter('en_US', NumberFormatter::DECIMAL), Money::getCurrencies()),
+            'BRL' => new IntlMoneyFormatter(new NumberFormatter('pt_BR', NumberFormatter::DECIMAL), Money::getCurrencies()),
         ];
 
         static::assertEquals("\xC9\x831000.00", Money::XBT(100000000000)->formatByAggregate($formatters));
@@ -56,9 +56,9 @@ class MoneyFormatterTraitTest extends TestCase
         static::assertEquals('$1.00', Money::USD(100)->formatByIntl());
         static::assertEquals('€1.00', Money::EUR(100)->formatByIntl());
         static::assertEquals('€1.00', Money::EUR(100)->formatByIntl('en_US'));
-        static::assertEquals('$1.00', Money::USD(100)->formatByIntl('en_US', Money::getCurrencies(), N::CURRENCY));
-        static::assertEquals('1,99', Money::EUR(199)->formatByIntl('fr_FR', Money::getCurrencies(), N::DECIMAL));
-        static::assertEquals('1', Money::USD(100)->formatByIntl('en_US', Money::getCurrencies(), N::DECIMAL));
+        static::assertEquals('$1.00', Money::USD(100)->formatByIntl('en_US', Money::getCurrencies()));
+        static::assertEquals('1,99', Money::EUR(199)->formatByIntl('fr_FR', Money::getCurrencies(), NumberFormatter::DECIMAL));
+        static::assertEquals('1', Money::USD(100)->formatByIntl('en_US', Money::getCurrencies(), NumberFormatter::DECIMAL));
     }
 
     public function testFormatByIntlLocalizedDecimal()
@@ -69,15 +69,15 @@ class MoneyFormatterTraitTest extends TestCase
         );
         static::assertEquals(
             '$1.00',
-            Money::USD(100)->formatByIntlLocalizedDecimal('en_US', Money::getCurrencies(), N::CURRENCY)
+            Money::USD(100)->formatByIntlLocalizedDecimal('en_US', Money::getCurrencies())
         );
         static::assertEquals(
             '1,99',
-            Money::EUR(199)->formatByIntlLocalizedDecimal('fr_FR', Money::getCurrencies(), N::DECIMAL)
+            Money::EUR(199)->formatByIntlLocalizedDecimal('fr_FR', Money::getCurrencies(), NumberFormatter::DECIMAL)
         );
         static::assertEquals(
             '1',
-            Money::USD(100)->formatByIntlLocalizedDecimal('en_US', Money::getCurrencies(), N::DECIMAL)
+            Money::USD(100)->formatByIntlLocalizedDecimal('en_US', Money::getCurrencies(), NumberFormatter::DECIMAL)
         );
     }
 

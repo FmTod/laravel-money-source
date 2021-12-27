@@ -20,6 +20,12 @@ trait HasMoneyWithCurrency
     use HasCurrency;
 
     #[Pure]
+    public function hasCurrencyColumnFor(string $field): bool
+    {
+        return isset($this->attributes[$this->getCurrencyColumnFor($field)]);
+    }
+
+    #[Pure]
     public function getCurrencyColumnFor(string $field): string
     {
         return $this->getCurrencyColumn();

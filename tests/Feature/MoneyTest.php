@@ -1,10 +1,10 @@
 <?php
 
-namespace FmTod\Money\Tests;
+namespace FmTod\Money\Tests\Feature;
 
 use FmTod\Money\Money;
+use FmTod\Money\Tests\TestCase;
 use Money\Currency;
-use PHPUnit\Framework\TestCase;
 
 class MoneyTest extends TestCase
 {

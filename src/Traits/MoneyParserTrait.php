@@ -39,29 +39,28 @@ trait MoneyParserTrait
             $currency = new Currency($currency);
         }
 
-        if (is_string($value) && filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
+        if (is_scalar($value)) {
             $locale = static::getLocale();
             $currencies = static::getCurrencies();
 
             try {
                 return static::parseByAggregate($value, null, [
                     new IntlMoneyParser(new NumberFormatter($locale, NumberFormatter::CURRENCY), $currencies),
+                    new IntlLocalizedDecimalParser(new NumberFormatter($locale, NumberFormatter::DECIMAL), $currencies),
+                    new DecimalMoneyParser($currencies),
                     new BitcoinMoneyParser($bitCoinDigits),
                 ]);
             } catch (ParserException $e) {
-                try {
-                    return static::parseByIntlLocalizedDecimal($value, $currency, $locale, $currencies);
-                } catch (ParserException $e) {
-                    throw new ParserException(sprintf('Unable to parse: %s', $value));
-                }
+                return static::parseByAggregate($value, $currency, [
+                    new IntlMoneyParser(new NumberFormatter($locale, NumberFormatter::CURRENCY), $currencies),
+                    new IntlLocalizedDecimalParser(new NumberFormatter($locale, NumberFormatter::DECIMAL), $currencies),
+                    new DecimalMoneyParser($currencies),
+                    new BitcoinMoneyParser($bitCoinDigits),
+                ]);
             }
         }
 
-        if (is_int($value) || is_float($value) || is_string($value)) {
-            return static::parseByDecimal((string) $value, $currency);
-        }
-
-        throw new InvalidArgumentException(sprintf('Invalid value: %s', json_encode($value)));
+        throw new InvalidArgumentException(sprintf('Invalid value %s', json_encode($value)));
     }
 
     /**
@@ -106,7 +105,7 @@ trait MoneyParserTrait
     {
         $parser = new DecimalMoneyParser($currencies ?: static::getCurrencies());
 
-        return static::parseByParser($parser, (string)$money, $fallbackCurrency);
+        return static::parseByParser($parser, $money, $fallbackCurrency);
     }
 
     /**

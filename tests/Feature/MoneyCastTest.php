@@ -1,11 +1,11 @@
 <?php
 
-namespace FmTod\Money\Tests;
+namespace FmTod\Money\Tests\Feature;
 
 use FmTod\Money\Money;
-use FmTod\Money\MoneyServiceProvider;
 use FmTod\Money\Tests\Database\Models\User;
-use GrahamCampbell\TestBench\AbstractPackageTestCase;
+use FmTod\Money\Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use InvalidArgumentException;
 use Money\Exception\ParserException;
@@ -15,9 +15,10 @@ use stdClass;
 /**
  * The money cast test.
  */
-class MoneyCastTest extends AbstractPackageTestCase
+class MoneyCastTest extends TestCase
 {
     use RefreshDatabase;
+    use DatabaseMigrations { runDatabaseMigrations as runMigration; }
 
     /**
      * Setup the test environment.
@@ -28,18 +29,18 @@ class MoneyCastTest extends AbstractPackageTestCase
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
+        $this->loadMigrationsFrom(dirname(__DIR__).'/Database/Migrations');
 
         Money::setCurrencies(config('money.currencies'));
     }
 
     public function testCastsMoneyWhenRetrievingCastedValues()
     {
-        $user = User::create([
+        $user = new User([
+            'currency' => 'AUD',
             'money' => 1234.56,
             'wage' => 50000,
             'debits' => null,
-            'currency' => 'AUD',
         ]);
 
         static::assertInstanceOf(Money::class, $user->money);
@@ -47,7 +48,7 @@ class MoneyCastTest extends AbstractPackageTestCase
         static::assertNull($user->debits);
 
         static::assertSame('123456', $user->money->getAmount());
-        static::assertSame('USD', $user->money->getCurrency()->getCode());
+        static::assertSame('AUD', $user->money->getCurrency()->getCode());
 
         static::assertSame('5000000', $user->wage->getAmount());
         static::assertSame('EUR', $user->wage->getCurrency()->getCode());
@@ -55,7 +56,7 @@ class MoneyCastTest extends AbstractPackageTestCase
         $user->debits = 100.99;
 
         static::assertSame('10099', $user->debits->getAmount());
-        static::assertSame('AUD', $user->debits->getCurrency()->getCode());
+        static::assertSame('USD', $user->debits->getCurrency()->getCode());
 
         $user->save();
 
@@ -63,9 +64,9 @@ class MoneyCastTest extends AbstractPackageTestCase
 
         $this->assertDatabaseHas('users', [
             'id' => 1,
-            'money' => 1234.56,
-            'wage' => 50000.00,
-            'debits' => 100.99,
+            'money' => 'A$1,234.56',
+            'wage' => '€50,000.00',
+            'debits' => '$100.99',
             'currency' => 'AUD',
         ]);
     }
@@ -73,16 +74,16 @@ class MoneyCastTest extends AbstractPackageTestCase
     public function testCastsMoneyWhenSettingCastedValues()
     {
         $user = new User([
+            'currency' => 'CAD',
             'money' => 0,
             'wage' => '6500000',
             'debits' => null,
-            'currency' => 'CAD',
         ]);
 
         static::assertSame('0', $user->money->getAmount());
-        static::assertSame('USD', $user->money->getCurrency()->getCode());
+        static::assertSame('CAD', $user->money->getCurrency()->getCode());
 
-        static::assertSame('6500000', $user->wage->getAmount());
+        static::assertSame('650000000', $user->wage->getAmount());
         static::assertSame('EUR', $user->wage->getCurrency()->getCode());
 
         static::assertNull($user->debits);
@@ -96,24 +97,18 @@ class MoneyCastTest extends AbstractPackageTestCase
         $user->debits = '¥213860';
 
         static::assertSame('10000', $user->money->getAmount());
-        static::assertSame('USD', $user->money->getCurrency()->getCode());
+        static::assertSame('CAD', $user->money->getCurrency()->getCode());
 
         static::assertSame('7050019', $user->wage->getAmount());
         static::assertSame('EUR', $user->wage->getCurrency()->getCode());
 
         static::assertSame('213860', $user->debits->getAmount());
         static::assertSame('JPY', $user->debits->getCurrency()->getCode());
-        static::assertSame('JPY', $user->currency);
 
         $user->money = '100,000.22';
-        $user->debits = 'Ƀ0.00012345';
 
         static::assertSame('10000022', $user->money->getAmount());
-        static::assertSame('USD', $user->money->getCurrency()->getCode());
-
-        static::assertSame('12345', $user->debits->getAmount());
-        static::assertSame('XBT', $user->debits->getCurrency()->getCode());
-        static::assertSame('XBT', $user->currency);
+        static::assertSame('CAD', $user->money->getCurrency()->getCode());
 
         $user->save();
 
@@ -121,10 +116,10 @@ class MoneyCastTest extends AbstractPackageTestCase
 
         $this->assertDatabaseHas('users', [
             'id' => 1,
-            'money' => 100000.22,
-            'wage' => 70500.19,
-            'debits' => 0.00012345,
-            'currency' => 'XBT',
+            'money' => 'CA$100,000.22',
+            'wage' => '€70,500.19',
+            'debits' => '¥213,860',
+            'currency' => 'CAD',
         ]);
     }
 
@@ -139,13 +134,8 @@ class MoneyCastTest extends AbstractPackageTestCase
     public function testFailsToParseInvalidMoney()
     {
         $this->expectException(ParserException::class);
-        $this->expectExceptionMessage('Unable to parse: abc');
+        $this->expectExceptionMessage('Unable to parse abc');
 
         new User(['money' => 'abc']);
-    }
-
-    protected function getServiceProviderClass()
-    {
-        return MoneyServiceProvider::class;
     }
 }

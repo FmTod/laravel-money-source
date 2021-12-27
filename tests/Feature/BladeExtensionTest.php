@@ -1,19 +1,17 @@
 <?php
 
-namespace FmTod\Money\Tests;
+namespace FmTod\Money\Tests\Feature;
 
-use FmTod\Money\BladeExtension;
+use FmTod\Money\Blade\BladeExtension;
+use FmTod\Money\Tests\TestCase;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Compilers\BladeCompiler;
 use Mockery;
-use PHPUnit\Framework\TestCase;
+
 
 class BladeExtensionTest extends TestCase
 {
-    /**
-     * @var \Illuminate\View\Compilers\BladeCompiler
-     */
-    protected $compiler;
+    protected BladeCompiler $compiler;
 
     protected function setUp(): void
     {
