@@ -179,7 +179,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             throw new \RuntimeException('The serializer class must implement the MoneySerializer class');
         }
 
-        return new $serializer($this);
+        $serialize = new $serializer;
+
+        return $serialize($this);
     }
 
     /**
