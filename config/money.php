@@ -7,9 +7,10 @@ return [
      |--------------------------------------------------------------------------
      */
     'locale' => config('app.locale', 'en_US'),
-    'defaultCurrency' => config('app.currency', 'USD'),
-    'defaultFormatter' => null,
+    'currency' => config('app.currency', 'USD'),
     'serializer' => FmTod\Money\Serializers\DefaultSerializer::class,
+    'formatter' => null,
+    'cast' => null,
     'currencies' => [
         'iso' => 'all',
         'bitcoin' => 'all',

@@ -60,12 +60,12 @@ class MoneyCast implements CastsAttributes
 
         if ($this->updateCurrencyColumn && $model instanceof HasMoneyWithCurrencyInterface && $model->hasCurrencyColumnFor($key)) {
             return [
-                $key => $money->format(),
+                $key => $this->format($money),
                 $model->getCurrencyColumnFor($key) => $money->getCurrency()->getCode(),
             ];
         }
 
-        return $money->format();
+        return $this->format($money);
     }
 
     /**
@@ -76,7 +76,7 @@ class MoneyCast implements CastsAttributes
      * @param $attributes
      * @return \Money\Currency
      */
-    private function resolveCurrencyColumn($model, string $key, $attributes): Currency
+    protected function resolveCurrencyColumn($model, string $key, $attributes): Currency
     {
         if (! is_null($this->forceCurrency)) {
             return new Currency($this->forceCurrency);
@@ -91,5 +91,20 @@ class MoneyCast implements CastsAttributes
         }
 
         return new Currency(Money::getDefaultCurrency());
+    }
+
+    /**
+     * Get formatted money object.
+     *
+     * @param  \FmTod\Money\Money  $money
+     * @return mixed
+     */
+    protected function format(Money $money): mixed
+    {
+        return $money->{match (config('money.cast')) {
+            'bitcoin' => 'formatByBitcoin',
+            'intl' => 'formatByIntl',
+            default => 'formatByDecimal',
+        }}();
     }
 }

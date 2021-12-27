@@ -31,7 +31,7 @@ trait CurrenciesTrait
     public static function getDefaultCurrency()
     {
         if (!isset(static::$defaultCurrency)) {
-            static::setDefaultCurrency(config('money.defaultCurrency', config('money.currency', 'USD')));
+            static::setDefaultCurrency(config('money.currency', 'USD'));
         }
 
         return static::$defaultCurrency;
