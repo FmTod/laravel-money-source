@@ -18,7 +18,6 @@ use stdClass;
 class MoneyCastTest extends TestCase
 {
     use RefreshDatabase;
-    use DatabaseMigrations { runDatabaseMigrations as runMigration; }
 
     /**
      * Setup the test environment.
