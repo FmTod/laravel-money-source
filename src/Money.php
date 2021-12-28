@@ -171,7 +171,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return array
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize(): mixed
     {
         $serializer = config('money.serializer', DefaultSerializer::class);
 

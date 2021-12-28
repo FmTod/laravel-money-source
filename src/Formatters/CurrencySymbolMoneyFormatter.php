@@ -38,7 +38,7 @@ class CurrencySymbolMoneyFormatter implements MoneyFormatter
      */
     public function format(\Money\Money $money): string
     {
-        $numberFormatter = new NumberFormatter($this->locale, NumberFormatter::CURRENCY);
+        $numberFormatter = new NumberFormatter( $this->locale."@currency=".$money->getCurrency()->getCode(), NumberFormatter::CURRENCY);
         $symbol = $numberFormatter->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
 
         $formatter = new DecimalMoneyFormatter($this->currencies);
