@@ -191,7 +191,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public function toArray(): array
     {
-        return $this->jsonSerialize();
+        return (array)$this->jsonSerialize();
     }
 
     /**
