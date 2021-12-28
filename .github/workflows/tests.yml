@@ -10,8 +10,8 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        php: [7.3, 7.4, 8.0]
-        laravel: [7.*, 8.*]
+        php: [8.0]
+        laravel: [8.*]
         stability: [prefer-lowest, prefer-stable]
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
@@ -37,7 +37,7 @@ jobs:
         run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
-        run: vendor/bin/phpunit --verbose
+        run: vendor/bin/pest --ci --coverage
 
       - name: Coverage
         uses: codecov/codecov-action@v2
