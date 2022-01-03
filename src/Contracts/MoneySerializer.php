@@ -6,5 +6,5 @@ use FmTod\Money\Money;
 
 interface MoneySerializer
 {
-    public function __invoke(Money $money): mixed;
+    public function __invoke(Money $money): array;
 }
