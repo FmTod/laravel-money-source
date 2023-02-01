@@ -8,7 +8,6 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Compilers\BladeCompiler;
 use Mockery;
 
-
 class BladeExtensionTest extends TestCase
 {
     protected BladeCompiler $compiler;

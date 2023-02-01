@@ -2,10 +2,9 @@
 
 namespace FmTod\Money\Tests\Feature;
 
-use FmTod\Money\MoneyServiceProvider;
-use GrahamCampbell\TestBench\AbstractPackageTestCase;
+use FmTod\Money\Tests\TestCase;
 
-class MoneyServiceProviderTest extends AbstractPackageTestCase
+class MoneyServiceProviderTest extends TestCase
 {
     public function testBladeDirectives()
     {
@@ -13,10 +12,5 @@ class MoneyServiceProviderTest extends AbstractPackageTestCase
 
         static::assertArrayHasKey('money', $customDirectives);
         static::assertArrayHasKey('currency', $customDirectives);
-    }
-
-    protected function getServiceProviderClass()
-    {
-        return MoneyServiceProvider::class;
     }
 }

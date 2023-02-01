@@ -5,7 +5,6 @@ namespace FmTod\Money\Tests\Feature;
 use FmTod\Money\Money;
 use FmTod\Money\Tests\Database\Models\User;
 use FmTod\Money\Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use InvalidArgumentException;
 use Money\Exception\ParserException;

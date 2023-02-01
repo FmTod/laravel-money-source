@@ -3,30 +3,20 @@
 namespace FmTod\Money\Tests;
 
 use FmTod\Money\MoneyServiceProvider;
-use GrahamCampbell\TestBench\AbstractPackageTestCase;
+use Orchestra\Testbench\TestCase as Orchestra;
 
-abstract class TestCase extends AbstractPackageTestCase
+abstract class TestCase extends Orchestra
 {
-    /**
-     * Setup the application environment.
-     *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
-     * @return void
-     */
-    protected function getEnvironmentSetUp($app): void
+    protected function getPackageProviders($app): array
     {
-        config()->set('money.locale', 'en_US');
-
-        parent::getEnvironmentSetUp($app);
+        return [
+            MoneyServiceProvider::class,
+        ];
     }
 
-    /**
-     * Get the service provider class.
-     *
-     * @return string
-     */
-    protected function getServiceProviderClass(): string
+    public function getEnvironmentSetUp($app): void
     {
-        return MoneyServiceProvider::class;
+        config()->set('database.default', 'testing');
+        config()->set('money.locale', 'en_US');
     }
 }

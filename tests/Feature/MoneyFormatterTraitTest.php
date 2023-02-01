@@ -2,12 +2,10 @@
 
 namespace FmTod\Money\Tests\Feature;
 
-use FmTod\Money\Formatters\CurrencySymbolMoneyFormatter;
 use FmTod\Money\Formatters\DecimalMoneyFormatter;
 use FmTod\Money\Money;
 use FmTod\Money\Tests\TestCase;
 use Money\Currencies\BitcoinCurrencies;
-use Money\Currencies\ISOCurrencies;
 use Money\Formatter\BitcoinMoneyFormatter;
 use Money\Formatter\IntlLocalizedDecimalFormatter;
 use Money\Formatter\IntlMoneyFormatter;
