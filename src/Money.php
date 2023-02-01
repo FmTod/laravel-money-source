@@ -70,14 +70,15 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Money.
      *
-     * @param int|string $amount
-     * @param \Money\Currency|string $currency
+     * @param  int|string  $amount
+     * @param  \Money\Currency|string  $currency
      * @return void
+     *
      * @throws \Money\Exception\UnknownCurrencyException
      */
     public function __construct(int|string $amount, Currency|string $currency)
     {
-        if (!$currency instanceof Currency) {
+        if (! $currency instanceof Currency) {
             $currency = new Currency($currency);
         }
 
@@ -191,7 +192,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public function toArray(): array
     {
-        return (array)$this->jsonSerialize();
+        return (array) $this->jsonSerialize();
     }
 
     /**

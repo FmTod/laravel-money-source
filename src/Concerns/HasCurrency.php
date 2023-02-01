@@ -13,6 +13,7 @@ use Money\Currency;
  * Trait HasCurrency
  *
  * @author Serhii Andriichuk <andriichuk29@gmail.com>
+ *
  * @editor FmTod <it@fmtod.com>
  */
 trait HasCurrency

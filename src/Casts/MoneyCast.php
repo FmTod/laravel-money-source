@@ -2,7 +2,6 @@
 
 namespace FmTod\Money\Casts;
 
-use FmTod\Money\Contracts\HasCurrencyInterface;
 use FmTod\Money\Contracts\HasMoneyWithCurrencyInterface;
 use FmTod\Money\Money;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
@@ -12,17 +11,16 @@ use Money\Currency;
 class MoneyCast implements CastsAttributes
 {
     public function __construct(
-        protected bool    $updateCurrencyColumn = true,
+        protected bool $updateCurrencyColumn = true,
         protected ?string $forceCurrency = null,
-    ) {}
+    ) {
+    }
 
     /**
-     *
-     *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @param string $key
-     * @param mixed $value
-     * @param array $attributes
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  string  $key
+     * @param  mixed  $value
+     * @param  array  $attributes
      * @return \FmTod\Money\Money|null
      */
     public function get($model, string $key, $value, array $attributes): ?Money
@@ -37,10 +35,10 @@ class MoneyCast implements CastsAttributes
     /**
      * Transform the attribute to its underlying model values.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @param string $key
-     * @param mixed $value
-     * @param array $attributes
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  string  $key
+     * @param  mixed  $value
+     * @param  array  $attributes
      * @return array|string|null
      */
     public function set($model, string $key, $value, array $attributes): array|string|null
@@ -72,7 +70,7 @@ class MoneyCast implements CastsAttributes
      * Resolve currency from the currency column in the model or the default currency.
      *
      * @param $model
-     * @param string $key
+     * @param  string  $key
      * @param $attributes
      * @return \Money\Currency
      */

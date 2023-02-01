@@ -2,14 +2,14 @@
 
 namespace FmTod\Money\Traits;
 
+use function config;
 use InvalidArgumentException;
 use Money\Currencies;
-use Money\Currency;
-use Money\Currencies\ISOCurrencies;
-use Money\Currencies\BitcoinCurrencies;
 use Money\Currencies\AggregateCurrencies;
+use Money\Currencies\BitcoinCurrencies;
 use Money\Currencies\CurrencyList;
-use function config;
+use Money\Currencies\ISOCurrencies;
+use Money\Currency;
 
 trait CurrenciesTrait
 {
@@ -30,7 +30,7 @@ trait CurrenciesTrait
      */
     public static function getDefaultCurrency()
     {
-        if (!isset(static::$defaultCurrency)) {
+        if (! isset(static::$defaultCurrency)) {
             static::setDefaultCurrency(config('money.currency', 'USD'));
         }
 

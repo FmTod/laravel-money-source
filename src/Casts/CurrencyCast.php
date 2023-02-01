@@ -14,6 +14,7 @@ use Money\Currency;
  * Class CurrencyCast
  *
  * @author Serhii Andriichuk <andriichuk29@gmail.com>
+ *
  * @editor FmTod <it@fmtod.com>
  */
 final class CurrencyCast implements CastsAttributes
@@ -21,12 +22,12 @@ final class CurrencyCast implements CastsAttributes
     /**
      * Cast the given value.
      *
-     * @param \Illuminate\Contracts\Database\Eloquent\Model $model
-     * @param string $key
-     * @param string $value
-     * @param array $attributes
-     *
+     * @param  \Illuminate\Contracts\Database\Eloquent\Model  $model
+     * @param  string  $key
+     * @param  string  $value
+     * @param  array  $attributes
      * @return \Money\Currency
+     *
      * @throws \Money\Exception\UnknownCurrencyException
      */
     public function get($model, $key, $value, $attributes): Currency
@@ -37,12 +38,12 @@ final class CurrencyCast implements CastsAttributes
     /**
      * Prepare the given value for storage.
      *
-     * @param Model $model
-     * @param string $key
-     * @param \Money\Currency|string $value
-     * @param array $attributes
-     *
+     * @param  Model  $model
+     * @param  string  $key
+     * @param  \Money\Currency|string  $value
+     * @param  array  $attributes
      * @return string
+     *
      * @throws \Money\Exception\UnknownCurrencyException
      */
     public function set($model, $key, $value, $attributes): string
@@ -53,10 +54,11 @@ final class CurrencyCast implements CastsAttributes
     /**
      * Resolve currency from the currency column in the model or the default currency.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @param string $key
-     * @param \Money\Currency|string $value
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  string  $key
+     * @param  \Money\Currency|string  $value
      * @return \Money\Currency
+     *
      * @throws \Money\Exception\UnknownCurrencyException
      */
     private function resolveCurrency(Model $model, string $key, $value): Currency

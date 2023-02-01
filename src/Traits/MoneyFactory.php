@@ -193,8 +193,9 @@ trait MoneyFactory
      * __callStatic.
      *
      * @param  string  $method
-     * @param  array $parameters
+     * @param  array  $parameters
      * @return \FmTod\Money\Money
+     *
      * @throws \Money\Exception\UnknownCurrencyException
      */
     public static function __callStatic(string $method, array $parameters)
@@ -207,6 +208,7 @@ trait MoneyFactory
      *
      * @param  \Money\Money  $instance
      * @return \FmTod\Money\Money
+     *
      * @throws \Money\Exception\UnknownCurrencyException
      */
     public static function fromMoney(\Money\Money $instance): Money

@@ -12,6 +12,7 @@ use function format_money_as_decimal;
  * Trait HasMoney
  *
  * @author Serhii Andriichuk <andriichuk29@gmail.com>
+ *
  * @editor FmTod <it@fmtod.com>
  */
 trait HasMoney
@@ -36,23 +37,22 @@ trait HasMoney
 
     protected function addAccessor(string $field): void
     {
-        $this->moneyCasts[$field . '_as_currency'] = function () use ($field) {
+        $this->moneyCasts[$field.'_as_currency'] = function () use ($field) {
             return format_money_as_currency($this->{$field});
         };
 
-        $this->moneyCasts[$field . '_as_decimal'] = function () use ($field) {
+        $this->moneyCasts[$field.'_as_decimal'] = function () use ($field) {
             return format_money_as_decimal($this->{$field});
         };
     }
 
     /**
-     * @param string $key
-     *
+     * @param  string  $key
      * @return mixed
      */
     public function __get($key)
     {
-        if (!$this->hasAccessor($key)) {
+        if (! $this->hasAccessor($key)) {
             return parent::__get($key);
         }
 

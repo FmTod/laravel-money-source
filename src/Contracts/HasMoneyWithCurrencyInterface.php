@@ -8,6 +8,7 @@ namespace FmTod\Money\Contracts;
  * Interface HasMoneyWithCurrencyInterface
  *
  * @author Serhii Andriichuk <andriichuk29@gmail.com>
+ *
  * @editor FmTod <it@fmtod.com>
  */
 interface HasMoneyWithCurrencyInterface extends HasCurrencyInterface

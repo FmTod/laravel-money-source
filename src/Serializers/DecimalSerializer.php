@@ -8,7 +8,7 @@ use JetBrains\PhpStorm\ArrayShape;
 
 class DecimalSerializer implements MoneySerializer
 {
-    #[ArrayShape(['value' => "string", 'currency' => "string"])]
+    #[ArrayShape(['value' => 'string', 'currency' => 'string'])]
     public function __invoke(Money $money): array
     {
         return [

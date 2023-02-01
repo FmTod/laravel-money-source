@@ -38,7 +38,7 @@ if (! function_exists('money_min')) {
      * @param  \FmTod\Money\Money  ...$collection
      * @return \FmTod\Money\Money
      */
-    function money_min(\FmTod\Money\Money $first, \FmTod\Money\Money ...$collection)
+    function money_min(FmTod\Money\Money $first, FmTod\Money\Money ...$collection)
     {
         return \FmTod\Money\Money::min($first, ...$collection);
     }
@@ -52,7 +52,7 @@ if (! function_exists('money_max')) {
      * @param  \FmTod\Money\Money  ...$collection
      * @return \FmTod\Money\Money
      */
-    function money_max(\FmTod\Money\Money $first, \FmTod\Money\Money ...$collection)
+    function money_max(FmTod\Money\Money $first, FmTod\Money\Money ...$collection)
     {
         return \FmTod\Money\Money::max($first, ...$collection);
     }
@@ -66,7 +66,7 @@ if (! function_exists('money_avg')) {
      * @param  \FmTod\Money\Money  ...$collection
      * @return \FmTod\Money\Money
      */
-    function money_avg(\FmTod\Money\Money $first, \FmTod\Money\Money ...$collection)
+    function money_avg(FmTod\Money\Money $first, FmTod\Money\Money ...$collection)
     {
         return \FmTod\Money\Money::avg($first, ...$collection);
     }
@@ -80,7 +80,7 @@ if (! function_exists('money_sum')) {
      * @param  \FmTod\Money\Money  ...$collection
      * @return \FmTod\Money\Money
      */
-    function money_sum(\FmTod\Money\Money $first, \FmTod\Money\Money ...$collection)
+    function money_sum(FmTod\Money\Money $first, FmTod\Money\Money ...$collection)
     {
         return \FmTod\Money\Money::sum($first, ...$collection);
     }
@@ -160,21 +160,21 @@ if (! function_exists('money_parse_by_intl_localized_decimal')) {
         $money,
         $fallbackCurrency,
         $locale = null,
-        \Money\Currencies $currencies = null
+        Money\Currencies $currencies = null
     ) {
         return \FmTod\Money\Money::parseByIntlLocalizedDecimal($money, $fallbackCurrency, $locale, $currencies);
     }
 }
 
-if (!function_exists('format_money_as_currency')) {
-    function format_money_as_currency(\FmTod\Money\Money $money, string $locale = null): string
+if (! function_exists('format_money_as_currency')) {
+    function format_money_as_currency(FmTod\Money\Money $money, string $locale = null): string
     {
-       return $money->format($locale);
+        return $money->format($locale);
     }
 }
 
-if (!function_exists('format_money_as_decimal')) {
-    function format_money_as_decimal(\FmTod\Money\Money $money): string
+if (! function_exists('format_money_as_decimal')) {
+    function format_money_as_decimal(FmTod\Money\Money $money): string
     {
         return $money->formatByDecimal();
     }

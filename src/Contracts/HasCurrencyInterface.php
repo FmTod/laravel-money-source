@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace FmTod\Money\Contracts;
 
-use \Money\Currency;
+use Money\Currency;
 
 /**
  * Interface HasMoneyWithCurrencyInterface
  *
  * @author Serhii Andriichuk <andriichuk29@gmail.com>
+ *
  * @editor FmTod <it@fmtod.com>
  */
 interface HasCurrencyInterface
