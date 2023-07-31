@@ -1,0 +1,22 @@
+{
+  "name": "laravel-money",
+  "version": "1.0.0",
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "keywords": [
+      "fmtod",
+      "laravel",
+      "laravel-money"
+  ],
+  "author": "fmtod",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/github": "^9.0.3",
+    "husky": "^8.0.3",
+    "semantic-release": "^21.0.7"
+  }
+}
