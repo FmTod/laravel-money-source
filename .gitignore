@@ -8,3 +8,4 @@ clover.xml
 .idea
 .vscode
 .phpunit.result.cache
+node_modules
