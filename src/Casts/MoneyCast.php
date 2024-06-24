@@ -14,15 +14,11 @@ class MoneyCast implements CastsAttributes
     public function __construct(
         protected bool $updateCurrencyColumn = true,
         protected ?string $forceCurrency = null,
-    ) {
-    }
+    ) {}
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
      * @param  mixed  $value
-     * @param  array  $attributes
-     * @return \FmTod\Money\Money|null
      */
     public function get($model, string $key, $value, array $attributes): ?Money
     {
@@ -37,10 +33,7 @@ class MoneyCast implements CastsAttributes
      * Transform the attribute to its underlying model values.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
      * @param  mixed  $value
-     * @param  array  $attributes
-     * @return array|string|null
      */
     public function set($model, string $key, $value, array $attributes): array|string|null
     {
@@ -68,11 +61,6 @@ class MoneyCast implements CastsAttributes
 
     /**
      * Resolve currency from the currency column in the model or the default currency.
-     *
-     * @param $model
-     * @param  string  $key
-     * @param $attributes
-     * @return \Money\Currency
      */
     protected function resolveCurrencyColumn($model, string $key, $attributes): Currency
     {
@@ -93,9 +81,6 @@ class MoneyCast implements CastsAttributes
 
     /**
      * Get formatted money object.
-     *
-     * @param  \FmTod\Money\Money  $money
-     * @return mixed
      */
     protected function format(Money $money): mixed
     {
@@ -108,9 +93,6 @@ class MoneyCast implements CastsAttributes
 
     /**
      * Parse the money value. Retry parsing the value without spaces if the parser fails.
-     *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
      */
     protected function parse(Model $model, string $key, mixed $value, array $attributes)
     {

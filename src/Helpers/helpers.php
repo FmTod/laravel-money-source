@@ -34,8 +34,6 @@ if (! function_exists('money_min')) {
     /**
      * money min.
      *
-     * @param  \FmTod\Money\Money  $first
-     * @param  \FmTod\Money\Money  ...$collection
      * @return \FmTod\Money\Money
      */
     function money_min(FmTod\Money\Money $first, FmTod\Money\Money ...$collection)
@@ -48,8 +46,6 @@ if (! function_exists('money_max')) {
     /**
      * money max.
      *
-     * @param  \FmTod\Money\Money  $first
-     * @param  \FmTod\Money\Money  ...$collection
      * @return \FmTod\Money\Money
      */
     function money_max(FmTod\Money\Money $first, FmTod\Money\Money ...$collection)
@@ -62,8 +58,6 @@ if (! function_exists('money_avg')) {
     /**
      * money avg.
      *
-     * @param  \FmTod\Money\Money  $first
-     * @param  \FmTod\Money\Money  ...$collection
      * @return \FmTod\Money\Money
      */
     function money_avg(FmTod\Money\Money $first, FmTod\Money\Money ...$collection)
@@ -76,8 +70,6 @@ if (! function_exists('money_sum')) {
     /**
      * money sum.
      *
-     * @param  \FmTod\Money\Money  $first
-     * @param  \FmTod\Money\Money  ...$collection
      * @return \FmTod\Money\Money
      */
     function money_sum(FmTod\Money\Money $first, FmTod\Money\Money ...$collection)
@@ -121,10 +113,9 @@ if (! function_exists('money_parse_by_decimal')) {
      *
      * @param  string  $money
      * @param  string|null  $fallbackCurrency
-     * @param  \Money\Currencies  $currencies
      * @return \FmTod\Money\Money
      */
-    function money_parse_by_decimal($money, $fallbackCurrency = null, Money\Currencies $currencies = null)
+    function money_parse_by_decimal($money, $fallbackCurrency = null, ?Money\Currencies $currencies = null)
     {
         return \FmTod\Money\Money::parseByDecimal($money, $fallbackCurrency, $currencies);
     }
@@ -137,10 +128,9 @@ if (! function_exists('money_parse_by_intl')) {
      * @param  string  $money
      * @param  string|null  $fallbackCurrency
      * @param  string|null  $locale
-     * @param  \Money\Currencies  $currencies
      * @return \FmTod\Money\Money
      */
-    function money_parse_by_intl($money, $fallbackCurrency = null, $locale = null, Money\Currencies $currencies = null)
+    function money_parse_by_intl($money, $fallbackCurrency = null, $locale = null, ?Money\Currencies $currencies = null)
     {
         return \FmTod\Money\Money::parseByIntl($money, $fallbackCurrency, $locale, $currencies);
     }
@@ -153,21 +143,20 @@ if (! function_exists('money_parse_by_intl_localized_decimal')) {
      * @param  string  $money
      * @param  string  $fallbackCurrency
      * @param  string|null  $locale
-     * @param  \Money\Currencies  $currencies
      * @return \FmTod\Money\Money
      */
     function money_parse_by_intl_localized_decimal(
         $money,
         $fallbackCurrency,
         $locale = null,
-        Money\Currencies $currencies = null
+        ?Money\Currencies $currencies = null
     ) {
         return \FmTod\Money\Money::parseByIntlLocalizedDecimal($money, $fallbackCurrency, $locale, $currencies);
     }
 }
 
 if (! function_exists('format_money_as_currency')) {
-    function format_money_as_currency(FmTod\Money\Money $money, string $locale = null): string
+    function format_money_as_currency(FmTod\Money\Money $money, ?string $locale = null): string
     {
         return $money->format($locale);
     }

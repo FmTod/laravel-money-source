@@ -10,7 +10,7 @@ class DecimalMoneyFormatter implements MoneyFormatter
 {
     private Currencies $currencies;
 
-    public function __construct(Currencies $currencies = null)
+    public function __construct(?Currencies $currencies = null)
     {
         $this->currencies = $currencies ?: \FmTod\Money\Money::getCurrencies();
     }

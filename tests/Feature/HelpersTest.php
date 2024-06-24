@@ -2,11 +2,12 @@
 
 namespace FmTod\Money\Tests\Feature;
 
-use function currency;
 use FmTod\Money\Money;
 use FmTod\Money\Tests\TestCase;
-use function money;
 use Money\Currency;
+
+use function currency;
+use function money;
 use function money_avg;
 use function money_max;
 use function money_min;

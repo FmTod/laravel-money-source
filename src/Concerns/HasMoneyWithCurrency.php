@@ -15,8 +15,8 @@ use JetBrains\PhpStorm\Pure;
  */
 trait HasMoneyWithCurrency
 {
-    use HasMoney;
     use HasCurrency;
+    use HasMoney;
 
     #[Pure]
     public function hasCurrencyColumnFor(string $field): bool

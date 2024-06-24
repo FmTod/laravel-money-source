@@ -54,14 +54,14 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 {
     use CurrenciesTrait;
     use LocaleTrait;
+    use Macroable {
+        Macroable::__call as macroCall;
+    }
     use MoneyFactory {
         MoneyFactory::__callStatic as factoryCallStatic;
     }
     use MoneyFormatterTrait;
     use MoneyParserTrait;
-    use Macroable {
-        Macroable::__call as macroCall;
-    }
 
     protected \Money\Money $money;
 
@@ -70,8 +70,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Money.
      *
-     * @param  int|string  $amount
-     * @param  \Money\Currency|string  $currency
      * @return void
      *
      * @throws \Money\Exception\UnknownCurrencyException
@@ -89,7 +87,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * __call.
      *
      * @param  string  $method
-     * @param  array  $parameters
      * @return \FmTod\Money\Money|\FmTod\Money\Money[]|mixed
      */
     public function __call($method, array $parameters)
@@ -132,7 +129,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * __callStatic.
      *
      * @param  string  $method
-     * @param  array  $parameters
      * @return \FmTod\Money\Money
      */
     public static function __callStatic($method, array $parameters)
@@ -148,9 +144,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 
     /**
      * Convert.
-     *
-     * @param  \Money\Money  $instance
-     * @return \FmTod\Money\Money
      */
     public static function convert(\Money\Money $instance): Money
     {
@@ -159,8 +152,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 
     /**
      * Get money.
-     *
-     * @return \Money\Money
      */
     public function getMoney(): \Money\Money
     {
@@ -187,8 +178,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 
     /**
      * Get the instance as an array.
-     *
-     * @return array
      */
     public function toArray(): array
     {
@@ -199,7 +188,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * Convert the object to its JSON representation.
      *
      * @param  int  $options
-     * @return string
      */
     public function toJson($options = 0): string
     {
@@ -208,8 +196,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 
     /**
      * Get the evaluated contents of the object.
-     *
-     * @return string
      */
     public function render(): string
     {
@@ -218,9 +204,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 
     /**
      * Get arguments.
-     *
-     * @param  array  $arguments
-     * @return array
      */
     #[Pure]
     private static function getArguments(array $arguments = []): array
@@ -237,7 +220,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Convert result.
      *
-     * @param  mixed  $result
      * @return \FmTod\Money\Money|\FmTod\Money\Money[]
      */
     private static function convertResult(mixed $result): Money|array

@@ -26,7 +26,6 @@ final class CurrencyCast implements CastsAttributes
      * @param  string  $key
      * @param  string  $value
      * @param  array  $attributes
-     * @return \Money\Currency
      *
      * @throws \Money\Exception\UnknownCurrencyException
      */
@@ -42,7 +41,6 @@ final class CurrencyCast implements CastsAttributes
      * @param  string  $key
      * @param  \Money\Currency|string  $value
      * @param  array  $attributes
-     * @return string
      *
      * @throws \Money\Exception\UnknownCurrencyException
      */
@@ -54,10 +52,7 @@ final class CurrencyCast implements CastsAttributes
     /**
      * Resolve currency from the currency column in the model or the default currency.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
      * @param  \Money\Currency|string  $value
-     * @return \Money\Currency
      *
      * @throws \Money\Exception\UnknownCurrencyException
      */

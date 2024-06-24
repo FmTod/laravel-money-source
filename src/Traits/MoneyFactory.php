@@ -192,8 +192,6 @@ trait MoneyFactory
     /**
      * __callStatic.
      *
-     * @param  string  $method
-     * @param  array  $parameters
      * @return \FmTod\Money\Money
      *
      * @throws \Money\Exception\UnknownCurrencyException
@@ -206,8 +204,6 @@ trait MoneyFactory
     /**
      * Create a new instance from the base money instance.
      *
-     * @param  \Money\Money  $instance
-     * @return \FmTod\Money\Money
      *
      * @throws \Money\Exception\UnknownCurrencyException
      */

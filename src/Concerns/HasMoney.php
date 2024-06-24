@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FmTod\Money\Concerns;
 
 use FmTod\Money\Casts\MoneyCast;
+
 use function format_money_as_currency;
 use function format_money_as_decimal;
 

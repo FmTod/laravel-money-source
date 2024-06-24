@@ -2,7 +2,6 @@
 
 namespace FmTod\Money\Traits;
 
-use function config;
 use InvalidArgumentException;
 use Money\Currencies;
 use Money\Currencies\AggregateCurrencies;
@@ -10,6 +9,8 @@ use Money\Currencies\BitcoinCurrencies;
 use Money\Currencies\CurrencyList;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
+
+use function config;
 
 trait CurrenciesTrait
 {
@@ -115,7 +116,6 @@ trait CurrenciesTrait
      * Make currencies list according to array for specified source.
      *
      * @param  array|string  $config
-     * @param  \Money\Currencies  $currencies
      * @param  string  $sourceName
      * @return \Money\Currencies
      *
