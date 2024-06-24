@@ -26,7 +26,7 @@ class MoneyCast implements CastsAttributes
             return null;
         }
 
-        $this->parse($model, $key, $value, $attributes);
+        return $this->parse($model, $key, $value, $attributes);
     }
 
     /**
@@ -42,7 +42,7 @@ class MoneyCast implements CastsAttributes
         }
 
         try {
-            $this->parse($model, $key, $value, $attributes);
+            $money = $this->parse($model, $key, $value, $attributes);
         } catch (InvalidArgumentException $e) {
             throw new InvalidArgumentException(
                 sprintf('Invalid data provided for %s::$%s', get_class($model), $key),
