@@ -5,6 +5,7 @@ namespace FmTod\Money\Casts;
 use FmTod\Money\Contracts\HasMoneyWithCurrencyInterface;
 use FmTod\Money\Money;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 use Money\Currency;
 
@@ -29,7 +30,7 @@ class MoneyCast implements CastsAttributes
             return null;
         }
 
-        return Money::parse($value, $this->resolveCurrencyColumn($model, $key, $attributes));
+        $this->parse($model, $key, $value, $attributes);
     }
 
     /**
@@ -48,11 +49,10 @@ class MoneyCast implements CastsAttributes
         }
 
         try {
-            $currency = $this->resolveCurrencyColumn($model, $key, $attributes);
-            $money = Money::parse($value, $currency);
+            $this->parse($model, $key, $value, $attributes);
         } catch (InvalidArgumentException $e) {
             throw new InvalidArgumentException(
-                sprintf('Invalid data provided for %s::$%s', get_class($model), $key)
+                sprintf('Invalid data provided for %s::$%s', get_class($model), $key),
             );
         }
 
@@ -104,5 +104,20 @@ class MoneyCast implements CastsAttributes
             'intl' => 'formatByIntl',
             default => 'formatByDecimal',
         }}();
+    }
+
+    /**
+     * Parse the money value. Retry parsing the value without spaces if the parser fails.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  string  $key
+     */
+    protected function parse(Model $model, string $key, mixed $value, array $attributes)
+    {
+        try {
+            return Money::parse($value, $this->resolveCurrencyColumn($model, $key, $attributes));
+        } catch (ParserException $e) {
+            return Money::parse(preg_replace('/\s/', '', $value), $this->resolveCurrencyColumn($model, $key, $attributes));
+        }
     }
 }
