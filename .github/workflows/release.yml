@@ -14,22 +14,22 @@ concurrency:
 jobs:
   lint:
     name: '🧹 Lint'
-    uses: ./.github/workflows/_lint.yml
+    uses: ./.github/workflows/_lint.yml@master
     if:  ${{ !startsWith(github.head_ref, 'renovate/') && github.event.pull_request.draft == false }}
 
   analize:
     name: '🔎 Analize'
-    uses: ./.github/workflows/_analyze.yml
+    uses: ./.github/workflows/_analyze.yml@master
     if:  ${{ !startsWith(github.head_ref, 'renovate/') && github.event.pull_request.draft == false }}
 
   test:
     name: '🧪 Test'
-    uses: ./.github/workflows/_test.yml
+    uses: ./.github/workflows/_test.yml@master
     if:  ${{ !startsWith(github.head_ref, 'renovate/') && github.event.pull_request.draft == false }}
     secrets: inherit
 
   release:
     name: '🚀 Release'
     needs: [test, analize, lint]
-    uses: ./.github/workflows/_release.yml
+    uses: ./.github/workflows/_release.yml@master
     if:  ${{ !startsWith(github.head_ref, 'renovate/') && github.event.pull_request.draft == false }}

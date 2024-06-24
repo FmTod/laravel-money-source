@@ -18,11 +18,11 @@ concurrency:
 jobs:
   analize:
     name: '🔎 Analize'
-    uses: ./.github/workflows/_analyze.yml
+    uses: ./.github/workflows/_analyze.yml@master
     if:  ${{ !startsWith(github.head_ref, 'renovate/') && github.event.pull_request.draft == false }}
 
   test:
     name: '🧪 Test'
-    uses: ./.github/workflows/_test.yml
+    uses: ./.github/workflows/_test.yml@master
     if:  ${{ !startsWith(github.head_ref, 'renovate/') && github.event.pull_request.draft == false }}
     secrets: inherit
