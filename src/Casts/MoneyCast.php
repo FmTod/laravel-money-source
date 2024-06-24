@@ -98,7 +98,7 @@ class MoneyCast implements CastsAttributes
     {
         try {
             return Money::parse($value, $this->resolveCurrencyColumn($model, $key, $attributes));
-        } catch (ParserException $e) {
+        } catch (\Throwable $e) {
             return Money::parse(preg_replace('/\s/', '', $value), $this->resolveCurrencyColumn($model, $key, $attributes));
         }
     }
