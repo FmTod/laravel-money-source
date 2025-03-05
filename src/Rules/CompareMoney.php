@@ -52,10 +52,11 @@ class CompareMoney implements ValidationRule, DataAwareRule
     {
         $actual = Money::parse($value, $this->currency);
 
-        $expected = with(
-            value: Money::parse(data_get($this->data, $this->expected) ?? 0, $this->currency),
-            callback: fn (Money $money) => when(! is_null($this->callback), $money, $this->callback)
-        );
+        $expected = Money::parse(data_get($this->data, $this->expected) ?? 0, $this->currency);
+
+        if (is_callable($this->callback)) {
+            $expected = value($this->callback, $expected);
+        }
 
         $operator = match ($this->operator) {
             '>=', 'greaterThanOrEqual' => 'greaterThanOrEqual',
