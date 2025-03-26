@@ -26,7 +26,7 @@ class BladeExtensionTest extends TestCase
         Mockery::close();
     }
 
-    public function testCurrency()
+    public function test_currency()
     {
         static::assertEquals(
             '<?php echo currency("USD"); ?>',
@@ -34,7 +34,7 @@ class BladeExtensionTest extends TestCase
         );
     }
 
-    public function testMoney()
+    public function test_money()
     {
         static::assertEquals(
             '<?php echo money(500); ?>',
@@ -47,7 +47,7 @@ class BladeExtensionTest extends TestCase
         );
     }
 
-    public function testMoneyMin()
+    public function test_money_min()
     {
         static::assertEquals(
             '<?php echo money_min(money(100), money(200), money(300)); ?>',
@@ -60,7 +60,7 @@ class BladeExtensionTest extends TestCase
         );
     }
 
-    public function testMoneyMax()
+    public function test_money_max()
     {
         static::assertEquals(
             '<?php echo money_max(money(100), money(200), money(300)); ?>',
@@ -73,7 +73,7 @@ class BladeExtensionTest extends TestCase
         );
     }
 
-    public function testMoneyAvg()
+    public function test_money_avg()
     {
         static::assertEquals(
             '<?php echo money_avg(money(100), money(200), money(300)); ?>',
@@ -86,7 +86,7 @@ class BladeExtensionTest extends TestCase
         );
     }
 
-    public function testMoneySum()
+    public function test_money_sum()
     {
         static::assertEquals(
             '<?php echo money_sum(money(100), money(200), money(300)); ?>',
@@ -99,7 +99,7 @@ class BladeExtensionTest extends TestCase
         );
     }
 
-    public function testMoneyParse()
+    public function test_money_parse()
     {
         static::assertEquals(
             '<?php echo money_parse("R$5,00"); ?>',
@@ -112,7 +112,7 @@ class BladeExtensionTest extends TestCase
         );
     }
 
-    public function testMoneyParseByBitcoin()
+    public function test_money_parse_by_bitcoin()
     {
         static::assertEquals(
             '<?php echo money_parse_by_bitcoin("\xC9\x831000.00"); ?>',
@@ -125,7 +125,7 @@ class BladeExtensionTest extends TestCase
         );
     }
 
-    public function testMoneyParseByDecimal()
+    public function test_money_parse_by_decimal()
     {
         static::assertEquals(
             '<?php echo money_parse_by_decimal("5.00", "USD"); ?>',
@@ -138,7 +138,7 @@ class BladeExtensionTest extends TestCase
         );
     }
 
-    public function testMoneyParseByIntl()
+    public function test_money_parse_by_intl()
     {
         static::assertEquals(
             '<?php echo money_parse_by_intl("R$5,00"); ?>',
@@ -161,7 +161,7 @@ class BladeExtensionTest extends TestCase
         );
     }
 
-    public function testMoneyParseByIntlLocalizedDecimal()
+    public function test_money_parse_by_intl_localized_decimal()
     {
         static::assertEquals(
             '<?php echo money_parse_by_intl_localized_decimal("1.00", "USD"); ?>',

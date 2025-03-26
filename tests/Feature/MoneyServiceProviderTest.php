@@ -6,7 +6,7 @@ use FmTod\Money\Tests\TestCase;
 
 class MoneyServiceProviderTest extends TestCase
 {
-    public function testBladeDirectives()
+    public function test_blade_directives()
     {
         $customDirectives = $this->app->make('blade.compiler')->getCustomDirectives();
 

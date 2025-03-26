@@ -13,7 +13,7 @@ use stdClass;
 
 class CustomMoneyFormatterTest extends TestCase
 {
-    public function testCurrencySymbolMoneyFormatter()
+    public function test_currency_symbol_money_formatter()
     {
         config()->set('money.formatter', CurrencySymbolMoneyFormatter::class);
 
@@ -25,7 +25,7 @@ class CustomMoneyFormatterTest extends TestCase
         static::assertEquals('$1.00', Money::USD(100)->format('en_US', Money::getCurrencies(), NumberFormatter::DECIMAL));
     }
 
-    public function testDecimalMoneyFormatter()
+    public function test_decimal_money_formatter()
     {
         config()->set('money.formatter', DecimalMoneyFormatter::class);
 
@@ -39,9 +39,9 @@ class CustomMoneyFormatterTest extends TestCase
         static::assertEquals('1.00', Money::USD(100)->format('en_US', Money::getCurrencies(), NumberFormatter::DECIMAL));
     }
 
-    public function testDecimalMoneyFormatterWithArgs()
+    public function test_decimal_money_formatter_with_args()
     {
-        config()->set('money.formatter', [DecimalMoneyFormatter::class, [new ISOCurrencies()]]);
+        config()->set('money.formatter', [DecimalMoneyFormatter::class, [new ISOCurrencies]]);
 
         static::assertEquals('1.00', Money::USD(100)->format());
         static::assertEquals('1.00', Money::EUR(100)->format());
@@ -51,7 +51,7 @@ class CustomMoneyFormatterTest extends TestCase
         static::assertEquals('1.00', Money::USD(100)->format('en_US', Money::getCurrencies(), NumberFormatter::DECIMAL));
     }
 
-    public function testInvalidMoneyFormatter()
+    public function test_invalid_money_formatter()
     {
         config()->set('money.formatter', stdClass::class);
 

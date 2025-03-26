@@ -60,7 +60,7 @@ trait MoneyFormatterTrait
      */
     public function formatByBitcoin(int $fractionDigits = 2, ?Currencies $currencies = null): string
     {
-        $formatter = new BitcoinMoneyFormatter($fractionDigits, $currencies ?: new BitcoinCurrencies());
+        $formatter = new BitcoinMoneyFormatter($fractionDigits, $currencies ?: new BitcoinCurrencies);
 
         return $this->formatByFormatter($formatter);
     }

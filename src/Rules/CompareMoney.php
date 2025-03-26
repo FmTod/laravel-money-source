@@ -8,7 +8,7 @@ use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use InvalidArgumentException;
 
-class CompareMoney implements ValidationRule, DataAwareRule
+class CompareMoney implements DataAwareRule, ValidationRule
 {
     /**
      * All the data under validation.

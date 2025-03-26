@@ -19,7 +19,7 @@ class CurrenciesTraitTest extends TestCase
         return $size;
     }
 
-    public function testGetCurrencies()
+    public function test_get_currencies()
     {
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
 
@@ -27,16 +27,16 @@ class CurrenciesTraitTest extends TestCase
         static::assertInstanceOf(\Money\Currencies\AggregateCurrencies::class, $mock->getCurrencies());
     }
 
-    public function testSetCurrencies()
+    public function test_set_currencies()
     {
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
-        $mock->setCurrencies(new \Money\Currencies\BitcoinCurrencies());
+        $mock->setCurrencies(new \Money\Currencies\BitcoinCurrencies);
 
         static::assertInstanceOf(\Money\Currencies::class, $mock->getCurrencies());
         static::assertInstanceOf(\Money\Currencies\BitcoinCurrencies::class, $mock->getCurrencies());
     }
 
-    public function testSetCurrenciesCustomCurrencies()
+    public function test_set_currencies_custom_currencies()
     {
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies([
@@ -59,7 +59,7 @@ class CurrenciesTraitTest extends TestCase
         static::assertEquals(3, $mock->getCurrencies()->subunitFor(new Currency('MY2')));
     }
 
-    public function testSetCurrenciesWrongISOCurrencyCode()
+    public function test_set_currencies_wrong_iso_currency_code()
     {
         $this->expectException(\InvalidArgumentException::class);
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
@@ -73,7 +73,7 @@ class CurrenciesTraitTest extends TestCase
         ]);
     }
 
-    public function testSetCurrenciesWrongBitcoinCurrencyCode()
+    public function test_set_currencies_wrong_bitcoin_currency_code()
     {
         $this->expectException(\InvalidArgumentException::class);
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
@@ -87,17 +87,17 @@ class CurrenciesTraitTest extends TestCase
         ]);
     }
 
-    public function testSetCurrenciesWrongStandardCurrenciesConfig()
+    public function test_set_currencies_wrong_standard_currencies_config()
     {
         $this->expectException(\InvalidArgumentException::class);
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies([
-            'iso' => new stdClass(),
+            'iso' => new stdClass,
             'bitcoin' => 'all',
         ]);
     }
 
-    public function testSetCurrenciesEmptyCurrenciesConfig()
+    public function test_set_currencies_empty_currencies_config()
     {
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies([
@@ -110,7 +110,7 @@ class CurrenciesTraitTest extends TestCase
         static::assertEquals(0, static::currencyListSize($mock->getCurrencies()));
     }
 
-    public function testSetCurrenciesDefaultCurrenciesConfig()
+    public function test_set_currencies_default_currencies_config()
     {
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies([]);
@@ -118,7 +118,7 @@ class CurrenciesTraitTest extends TestCase
         static::assertInstanceOf(\Money\Currencies\ISOCurrencies::class, $mock->getCurrencies());
     }
 
-    public function testSetCurrenciesAllISOCurrencies()
+    public function test_set_currencies_all_iso_currencies()
     {
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies([
@@ -126,12 +126,12 @@ class CurrenciesTraitTest extends TestCase
         ]);
 
         static::assertEquals(
-            new \Money\Currencies\AggregateCurrencies([new \Money\Currencies\ISOCurrencies()]),
+            new \Money\Currencies\AggregateCurrencies([new \Money\Currencies\ISOCurrencies]),
             $mock->getCurrencies()
         );
     }
 
-    public function testSetCurrenciesAllBitcoinCurrencies()
+    public function test_set_currencies_all_bitcoin_currencies()
     {
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies([
@@ -139,7 +139,7 @@ class CurrenciesTraitTest extends TestCase
         ]);
 
         static::assertEquals(
-            new \Money\Currencies\AggregateCurrencies([new \Money\Currencies\BitcoinCurrencies()]),
+            new \Money\Currencies\AggregateCurrencies([new \Money\Currencies\BitcoinCurrencies]),
             $mock->getCurrencies()
         );
     }

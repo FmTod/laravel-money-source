@@ -30,7 +30,7 @@ class MoneyCastTest extends TestCase
         Money::setCurrencies(config('money.currencies'));
     }
 
-    public function testCastsMoneyWhenRetrievingCastedValues()
+    public function test_casts_money_when_retrieving_casted_values()
     {
         $user = new User([
             'currency' => 'AUD',
@@ -67,7 +67,7 @@ class MoneyCastTest extends TestCase
         ]);
     }
 
-    public function testCastsMoneyWhenSettingCastedValues()
+    public function test_casts_money_when_setting_casted_values()
     {
         $user = new User([
             'currency' => 'CAD',
@@ -119,15 +119,15 @@ class MoneyCastTest extends TestCase
         ]);
     }
 
-    public function testFailsToSetInvalidMoney()
+    public function test_fails_to_set_invalid_money()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid data provided for FmTod\Money\Tests\Database\Models\User::$money');
 
-        new User(['money' => new stdClass()]);
+        new User(['money' => new stdClass]);
     }
 
-    public function testFailsToParseInvalidMoney()
+    public function test_fails_to_parse_invalid_money()
     {
         $this->expectException(ParserException::class);
         $this->expectExceptionMessage('Unable to parse abc');

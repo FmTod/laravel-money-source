@@ -8,7 +8,7 @@ use FmTod\Money\Tests\TestCase;
 
 class MoneySerializerTest extends TestCase
 {
-    public function testDefaultSerializer()
+    public function test_default_serializer()
     {
         static::assertEquals([
             'amount' => '100',
@@ -17,7 +17,7 @@ class MoneySerializerTest extends TestCase
         ], Money::USD(100)->jsonSerialize());
     }
 
-    public function testDecimalSerializer()
+    public function test_decimal_serializer()
     {
         config()->set('money.serializer', DecimalSerializer::class);
 
