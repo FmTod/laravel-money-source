@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^8.1|^8.2",
+        "php": ">=8.2",
         "ext-intl": "*",
         "ext-json": "*",
         "illuminate/support": "^11.0",
