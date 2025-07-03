@@ -13,7 +13,6 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Traits\Macroable;
-use JetBrains\PhpStorm\Pure;
 use JsonSerializable;
 use Money\Currency;
 
@@ -205,7 +204,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Get arguments.
      */
-    #[Pure]
     private static function getArguments(array $arguments = []): array
     {
         $args = [];
