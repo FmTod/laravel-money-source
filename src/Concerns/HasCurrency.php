@@ -20,10 +20,29 @@ trait HasCurrency
 {
     private array $currencyFields = [];
 
+    /**
+     * Default the currency columns on create, registered once for the class.
+     *
+     * Registering this from the instance initializer instead — as this trait used to — adds a
+     * listener per model constructed, and the closure closes over the instance that registered
+     * it. The dispatcher then holds every model ever hydrated for the life of the process: a
+     * command that walks a few hundred thousand rows keeps every one of them, and each create
+     * fires one listener per instance built so far.
+     */
+    public static function bootHasCurrency(): void
+    {
+        static::creating(static function (Model $model): void {
+            foreach ($model->currencyFields as $currencyField) {
+                if ($model->{$currencyField} === null) {
+                    $model->{$currencyField} = $model->getDefaultCurrencyFor($currencyField);
+                }
+            }
+        });
+    }
+
     protected function initializeHasCurrency(): void
     {
         $this->grabCurrencyFields();
-        $this->attachCurrencyFieldsEvents();
     }
 
     private function grabCurrencyFields(): void
@@ -39,17 +58,6 @@ trait HasCurrency
 
             $this->currencyFields[] = $field;
         }
-    }
-
-    private function attachCurrencyFieldsEvents(): void
-    {
-        static::creating(function (Model $model) {
-            foreach ($this->currencyFields as $currencyField) {
-                if ($model->{$currencyField} === null) {
-                    $model->{$currencyField} = $this->getDefaultCurrencyFor($currencyField);
-                }
-            }
-        });
     }
 
     public function getDefaultCurrencyFor(string $field): Currency
